@@ -80,7 +80,7 @@ function InicioMes(year, mesidx) {
 function Mes(year, mesidx) {
     const inicioActual = InicioMes(year, mesidx);
     
-    // Determinamos el año y mes del ciclo siguiente
+    // Determina el año y mes del ciclo siguiente
     let nextYear = year;
     let nextMes = mesidx + 1;
     if (nextMes > 11) {
@@ -90,7 +90,7 @@ function Mes(year, mesidx) {
     
     const inicioSiguiente = InicioMes(nextYear, nextMes);
     
-    // La diferencia en días entre ambos inicios es la duración exacto del mes (29 o 30 días)
+    // La diferencia en días entre ambos inicios es la duración exacto del mes
     const diffTime = inicioSiguiente - inicioActual;
     const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
     
@@ -178,7 +178,7 @@ function renderCalendar() {
         const dayPhase = FaseLunar(dayLunar);
         const isNewMoon = dayPhase.name === 'New Moon';
 
-        // Comparamos el día del ciclo lunar de 'today' con el de la casilla
+        // Compara el día del ciclo lunar de 'today' con el de la casilla
         const todayLunar = getLunarDay(today);
         const isToday = Math.floor(dayLunar) === Math.floor(todayLunar) && 
                         currentDate.getMonth() === today.getMonth() &&
