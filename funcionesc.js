@@ -28,18 +28,17 @@ let selectedDate = null;
 function getLunarDay(date) {
     const tempDate = new Date(date);
 
-    // Días transcurridos tras el 15 de Julio de 2026
     const diffDays = (tempDate - FECHA_BASE) / (1000 * 60 * 60 * 24);
     let lunarDay = diffDays % CICLO_LUNAR;
     if (lunarDay < 0) lunarDay += CICLO_LUNAR;
-
-    // Si ya pasaron las 18:00 hrs, en el calendario ático ya es el siguiente día
+    
     if (tempDate.getHours() >= 18) {
         lunarDay += 1;
     }
 
     return lunarDay;
 }
+
 //Días y Fases
 function FaseLunar(lunarday) {
     const fase = lunarday / CICLO_LUNAR;
@@ -80,7 +79,7 @@ function InicioMes(year, mesidx) {
 function Mes(year, mesidx) {
     const inicioActual = InicioMes(year, mesidx);
     
-    // Determina el año y mes del ciclo siguiente
+    // Determinamos el año y mes del ciclo siguiente
     let nextYear = year;
     let nextMes = mesidx + 1;
     if (nextMes > 11) {
@@ -90,7 +89,7 @@ function Mes(year, mesidx) {
     
     const inicioSiguiente = InicioMes(nextYear, nextMes);
     
-    // La diferencia en días entre ambos inicios es la duración exacto del mes
+    // La diferencia en días entre ambos inicios es la duración exacto del mes (29 o 30 días)
     const diffTime = inicioSiguiente - inicioActual;
     const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
     
@@ -127,7 +126,6 @@ function Update(date) {
     };
 
     const iniciodia = date.toLocaleDateString(undefined, options);
-
     if (DOM.selectedDate) DOM.selectedDate.textContent = iniciodia;
     if (DOM.selectedPhaseIcon) DOM.selectedPhaseIcon.textContent = fase.icon;
     if (DOM.selectedPhaseName) DOM.selectedPhaseName.textContent = fase.name;
@@ -146,7 +144,7 @@ function renderCalendar() {
     const primer_dia_semana = fechainicio.getDay();
     const today = new Date();
     const todayStr = today.toDateString();
-
+    
     if (DOM.monthTitle) DOM.monthTitle.textContent = MONTH_NAMES[currentMonthIdx];
     if (DOM.monthNumberEl) DOM.monthNumberEl.textContent = currentMonthIdx + 1;
     if (DOM.daysCountEl) DOM.daysCountEl.textContent = dias_en_el_Mes;
@@ -178,7 +176,7 @@ function renderCalendar() {
         const dayPhase = FaseLunar(dayLunar);
         const isNewMoon = dayPhase.name === 'New Moon';
 
-        // Compara el día del ciclo lunar de 'today' con el de la casilla
+        // Comparamos el día del ciclo lunar de 'today' con el de la casilla
         const todayLunar = getLunarDay(today);
         const isToday = Math.floor(dayLunar) === Math.floor(todayLunar) && 
                         currentDate.getMonth() === today.getMonth() &&
@@ -246,7 +244,10 @@ function initCalendar() {
     
     const today = new Date();
     let found = false;
-
+    let effectiveToday = new Date(today);
+    if (effectiveToday.getHours() >= 18) {
+        effectiveToday.setDate(effectiveToday.getDate() + 1);
+    }
     for (let year = 1; year < 100 && !found; year++) {
         for (let mes = 0; mes < 12 && !found; mes++) {
             const fechainicial = InicioMes(year, mes);
@@ -256,7 +257,7 @@ function initCalendar() {
             if (today >= fechainicial && today <= fechafinal) {
                 currentYear = year;
                 currentMonthIdx = mes;
-                selectedDate = today;
+                selectedDate = effectiveToday;
                 found = true;
             }
         }
