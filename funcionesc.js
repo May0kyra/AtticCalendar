@@ -105,7 +105,7 @@ function fechadia(year, mesidx, day) {
 }
 
 //Actualizar info
-function Update(date) {
+function Update(date, opcion=null) {
     if (!date) {
         if (DOM.selectedDate) DOM.selectedDate.textContent = '';
         if (DOM.selectedPhaseIcon) DOM.selectedPhaseIcon.textContent = '🌒';
@@ -124,9 +124,12 @@ function Update(date) {
         month: 'long',
         year: 'numeric'
     };
-
     const iniciodia = date.toLocaleDateString(undefined, options);
-    if (DOM.selectedDate) DOM.selectedDate.textContent = iniciodia;
+    let iniciodiaCesar = iniciodia;
+    if (opcion && opcion instanceof Date) {
+        iniciodiaCesar = opcion.toLocaleDateString(undefined, options);
+    }
+    if (DOM.selectedDate) DOM.selectedDate.textContent = iniciodiaCesar;
     if (DOM.selectedPhaseIcon) DOM.selectedPhaseIcon.textContent = fase.icon;
     if (DOM.selectedPhaseName) DOM.selectedPhaseName.textContent = fase.name;
     if (DOM.selectedLunarDay) DOM.selectedLunarDay.textContent = diaciclo;
@@ -166,7 +169,7 @@ function renderCalendar() {
     for (let i = 0; i < primer_dia_semana; i++) {
         html += `<div class="day-cell empty"></div>`;
     }
-
+    
     for (let day = 1; day <= dias_en_el_Mes; day++) {
         const currentDate = new Date(fechainicio);
         currentDate.setDate(fechainicio.getDate() + day - 1);
@@ -196,7 +199,6 @@ function renderCalendar() {
             </div>
         `;
     }
-
     DOM.daysGrid.innerHTML = html;
 }
 
@@ -245,6 +247,7 @@ function initCalendar() {
     const today = new Date();
     let found = false;
     let effectiveToday = new Date(today);
+    let TenerCesarDia = new Date(today);
     if (effectiveToday.getHours() >= 18) {
         effectiveToday.setDate(effectiveToday.getDate() + 1);
     }
@@ -292,7 +295,7 @@ function initCalendar() {
     });
 
     renderCalendar();
-    Update(selectedDate);
+    Update(selectedDate,TenerCesarDia);
 }
 
 // Exportar funciones y getters para window si se requiere usarlos desde fuera
