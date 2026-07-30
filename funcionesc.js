@@ -1,5 +1,10 @@
-//Referencias al DOM
+// Referencias al DOM: guardará los elementos seleccionados del HTML
 let DOM = {};
+
+/*
+ Captura todos los elementos HTML necesarios por su ID 
+ y los almacena en el objeto 'DOM' para evitar consultas repetidas.
+ */
 function initDOM() {
     DOM = {
         monthTitle: document.getElementById('monthTitle'),
@@ -16,32 +21,30 @@ function initDOM() {
     };
 }
 
+// Constantes globales del calendario
 const MONTH_NAMES = ["Hekatombaion","Metageitnion","Boedromion","Pyanepsion","Maimakterion","Poseideon","Gamelion","Anthesterion","Elaphebolion","Mounichion","Thargelion","Skirophorion"];
-const FECHA_BASE = new Date(2026, 6, 16);
-const CICLO_LUNAR = 29.53058867;
+const FECHA_BASE = new Date(2026, 6, 16); // 16 de Julio de 2026 (Punto de referencia base)
+const CICLO_LUNAR = 29.53058867; // Duración promedio de un mes lunar en días
 
-//Estados
+// Variables de estado global
 let currentMonthIdx = 0;
-let currentYear = 1;
-let selectedDate = null;
+let currentYear = 1;     
+let selectedDate = null;  
+
+//Calcula el día exacto dentro del ciclo lunar (0 a 29.53) para una fecha dada.
 
 function getLunarDay(date) {
     const tempDate = new Date(date);
 
+    // Diferencia en días enteros/decimales
     const diffDays = (tempDate - FECHA_BASE) / (1000 * 60 * 60 * 24);
     let lunarDay = diffDays % CICLO_LUNAR;
     if (lunarDay < 0) lunarDay += CICLO_LUNAR;
-    
-    if (tempDate.getHours() >= 18) {
-        lunarDay += 1;
-    }
-
     return lunarDay;
 }
 
-//Días y Fases
 function FaseLunar(lunarday) {
-    const fase = lunarday / CICLO_LUNAR;
+    const fase = lunarday / CICLO_LUNAR; // Porcentaje de avance del ciclo (0.0 a 1.0)
     if (fase >= 0.97) return { name: 'New Moon', icon: '🌑' };
     if (fase < 0.22) return { name: 'Waxing Crescent', icon: '🌒' };
     if (fase < 0.28) return { name: 'First Quarter', icon: '🌓' };
@@ -52,6 +55,8 @@ function FaseLunar(lunarday) {
     if (fase < 0.95) return { name: 'Waning Crescent', icon: '🌘' };
     return { name: 'New Moon', icon: '🌑' };
 }
+
+ // Calcula la fecha estimada en la que ocurrirá la siguiente Luna Nueva
 
 function ProxNew(date) {
     const diffDays = (date - FECHA_BASE) / (1000 * 60 * 60 * 24);
@@ -65,19 +70,19 @@ function ProxNew(date) {
     return nextNewMoon;
 }
 
-// Calcula el inicio exacto del mes (Año, Mes)
-function InicioMes(year, mesidx) {
+/// Calcula la fecha real gregoriana en la que inicia un determinado año y mes del calendario ático partiendo de la fecha base 
+
+function InicioDelMesGregoriano(year, mesidx) {
     const totalMeses = (year - 1) * 12 + mesidx;
     const totalDays = Math.round(totalMeses * CICLO_LUNAR);
-    
     const startDate = new Date(FECHA_BASE);
     startDate.setDate(startDate.getDate() + totalDays);
     return startDate;
 }
 
-// Calcula los días de un mes restando la fecha de inicio del SIGUIENTE mes
+  // Calcula la duración exacta de un mes específico (29 o 30 días)
 function Mes(year, mesidx) {
-    const inicioActual = InicioMes(year, mesidx);
+    const inicioActual = InicioDelMesGregoriano(year, mesidx);
     
     // Determinamos el año y mes del ciclo siguiente
     let nextYear = year;
@@ -86,68 +91,74 @@ function Mes(year, mesidx) {
         nextMes = 0;
         nextYear++;
     }
+    const inicioSiguiente = InicioDelMesGregoriano(nextYear, nextMes);
     
-    const inicioSiguiente = InicioMes(nextYear, nextMes);
-    
-    // La diferencia en días entre ambos inicios es la duración exacto del mes (29 o 30 días)
+    // La diferencia en días entre ambos inicios es la duración exacta del mes (29 o 30 días)
     const diffTime = inicioSiguiente - inicioActual;
     const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
-    
     return diffDays;
 }
 
-//Obtener Fecha
-function fechadia(year, mesidx, day) {
-    const inicio = InicioMes(year, mesidx);
+/*Esta mierda lo que hace es que si yo le mando una información que está en el formato 
+del calendario ático, lo regresa al gregoriano*/
+function FechaDelDiaNormal(year, mesidx, day) {
+    const inicio = InicioDelMesGregoriano(year, mesidx);
     const date = new Date(inicio);
     date.setDate(inicio.getDate() + day - 1);
     return date;
 }
-
-//Actualizar info
-function Update(date, opcion=null) {
+//Actualiza el panel de arriba el cosito de la luna
+function Update(date, opcion = null) {
     if (!date) {
         if (DOM.selectedDate) DOM.selectedDate.textContent = '';
-        if (DOM.selectedPhaseIcon) DOM.selectedPhaseIcon.textContent = '🌒';
-        if (DOM.selectedPhaseName) DOM.selectedPhaseName.textContent = 'Luna';
-        if (DOM.selectedLunarDay) DOM.selectedLunarDay.textContent = '1';
-        return;
-    }
+        if (DOM.selectedPhaseIcon) DOM.selectedPhaseIcon.textContent = '⭐';
+        if (DOM.selectedPhaseName) DOM.selectedPhaseName.textContent = 'Select a date';
+        if (DOM.selectedLunarDay) DOM.selectedLunarDay.textContent = '';
+    } else {
+        const today = new Date();
+        const lunarDaySeleccionado = getLunarDay(date);
+        const lunarDayHoy = getLunarDay(today); //HOY en el calendario ático
+        const esMismoDiaAticoQuestion = Math.floor(lunarDaySeleccionado) === Math.floor(lunarDayHoy);
+        let fechadeCesar;
 
-    const lunarDay = getLunarDay(date);
-    const fase = FaseLunar(lunarDay);
-    const diaciclo = Math.floor(lunarDay) + 1;
+        if (esMismoDiaAticoQuestion) {
+            fechadeCesar = today; //si es el mismo día, muestra lo de tu dispositivo
+        } else if (opcion && opcion instanceof Date) {
+            fechadeCesar = opcion;
+        } else {
+            fechadeCesar = date;
+        }
+        const fase = FaseLunar(lunarDaySeleccionado);
+        const diaciclo = Math.floor(lunarDaySeleccionado) + 1;
 
-    const options = {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-    };
-    const iniciodia = date.toLocaleDateString(undefined, options);
-    let iniciodiaCesar = iniciodia;
-    if (opcion && opcion instanceof Date) {
-        iniciodiaCesar = opcion.toLocaleDateString(undefined, options);
+        const options = {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        };
+
+        const textoFechaReal = fechadeCesar.toLocaleDateString(undefined, options);
+        if (DOM.selectedDate) DOM.selectedDate.textContent = textoFechaReal;
+        if (DOM.selectedPhaseIcon) DOM.selectedPhaseIcon.textContent = fase.icon;
+        if (DOM.selectedPhaseName) DOM.selectedPhaseName.textContent = fase.name;
+        if (DOM.selectedLunarDay) DOM.selectedLunarDay.textContent = diaciclo;
     }
-    if (DOM.selectedDate) DOM.selectedDate.textContent = iniciodiaCesar;
-    if (DOM.selectedPhaseIcon) DOM.selectedPhaseIcon.textContent = fase.icon;
-    if (DOM.selectedPhaseName) DOM.selectedPhaseName.textContent = fase.name;
-    if (DOM.selectedLunarDay) DOM.selectedLunarDay.textContent = diaciclo;
 }
-
-//Render
+/*
+    Dibuja la cuadrícula del calendario en el HTML (`daysGrid`) e inserta celdas vacías de desfase, 
+    asigna los días, detecta si es el día actual, si es luna nueva o si está seleccionado, y construye las celdas que se pueden tocar.
+ */
 function renderCalendar() {
     if (!DOM.daysGrid) {
         console.error('DOM no inicializado.');
         return;
     }
-
-    const fechainicio = InicioMes(currentYear, currentMonthIdx);
+    const fechainicio = InicioDelMesGregoriano(currentYear, currentMonthIdx);
     const dias_en_el_Mes = Mes(currentYear, currentMonthIdx);
     const primer_dia_semana = fechainicio.getDay();
     const today = new Date();
     const todayStr = today.toDateString();
-    
     if (DOM.monthTitle) DOM.monthTitle.textContent = MONTH_NAMES[currentMonthIdx];
     if (DOM.monthNumberEl) DOM.monthNumberEl.textContent = currentMonthIdx + 1;
     if (DOM.daysCountEl) DOM.daysCountEl.textContent = dias_en_el_Mes;
@@ -159,33 +170,37 @@ function renderCalendar() {
 
     if (DOM.phaseIcon) DOM.phaseIcon.textContent = fase.icon;
     if (DOM.phaseName) DOM.phaseName.textContent = fase.name;
-
-    if (!selectedDate) {
-        selectedDate = new Date(fechainicio);
-        Update(selectedDate);
-    }
+    
+    /*if (!selectedDate) {
+        Update(null,null);
+    }*/
 
     let html = '';
+    // Agrega casillas transparentes/vacías según el día de la semana en que inicia el mes
     for (let i = 0; i < primer_dia_semana; i++) {
         html += `<div class="day-cell empty"></div>`;
     }
     
+    // Genera las celdas de días válidos del mes
     for (let day = 1; day <= dias_en_el_Mes; day++) {
-        const currentDate = new Date(fechainicio);
-        currentDate.setDate(fechainicio.getDate() + day - 1);
+        const currentDate = FechaDelDiaNormal(currentYear, currentMonthIdx, day);
 
-        // Calculamos el día lunar para esta celda
+        // Calcula el día lunar para esta celda
         const dayLunar = getLunarDay(currentDate);
         const dayPhase = FaseLunar(dayLunar);
         const isNewMoon = dayPhase.name === 'New Moon';
 
-        // Comparamos el día del ciclo lunar de 'today' con el de la casilla
+        // Compara el día del ciclo lunar de 'today' con el de la casilla
+        const today = new Date();
+        let effectiveToday = new Date(today);
+        //si "hoy" en el calendario normal es mayor que las 7 pm entonces pasa al otro día.
+        if (today.getHours() >= 19) {
+            effectiveToday.setDate(effectiveToday.getDate() + 1);
+        }
         const todayLunar = getLunarDay(today);
-        const isToday = Math.floor(dayLunar) === Math.floor(todayLunar) && 
-                        currentDate.getMonth() === today.getMonth() &&
-                        currentDate.getFullYear() === today.getFullYear();
-
+        const isToday = currentDate.toDateString() === effectiveToday.toDateString();
         const isSelected = selectedDate && currentDate.toDateString() === selectedDate.toDateString();
+
 
         let classes = 'day-cell';
         if (isToday) classes += ' today';
@@ -202,14 +217,12 @@ function renderCalendar() {
     DOM.daysGrid.innerHTML = html;
 }
 
-//Seleccionar día
 function DiaSeleccionado(dia) {
-    const fechainicio = InicioMes(currentYear, currentMonthIdx);
-    const date = new Date(fechainicio);
-    date.setDate(fechainicio.getDate() + dia - 1);
+    const date = FechaDelDiaNormal(currentYear, currentMonthIdx, dia);
     selectedDate = date;
     Update(selectedDate);
     renderCalendar();
+    return selectedDate;
 }
 
 function MesAnt() {
@@ -221,8 +234,8 @@ function MesAnt() {
     }
     selectedDate = null;
     renderCalendar();
-    const fechainicio = InicioMes(currentYear, currentMonthIdx);
-    selectedDate = new Date(fechainicio);
+    const fechainicio = InicioDelMesGregoriano(currentYear, currentMonthIdx);
+    /*selectedDate = new Date(fechainicio);*/
     Update(selectedDate);
 }
 
@@ -235,29 +248,33 @@ function MesSig() {
     }
     selectedDate = null;
     renderCalendar();
-    const fechainicio = InicioMes(currentYear, currentMonthIdx);
-    selectedDate = new Date(fechainicio);
+    const fechainicio = InicioDelMesGregoriano(currentYear, currentMonthIdx);
+    /*selectedDate = new Date(fechainicio);*/
     Update(selectedDate);
 }
 
-//Inicialización
+/* Inicializa las referencias del DOM.
+   Encuentra en qué mes/año ático cae la fecha real de hoy.
+   Hace funcionar los botones con sus eventos, a las casillas del grid y a las teclas de dirección.
+   Renderiza la interfaz por primera vez.
+ */
 function initCalendar() {
     initDOM();
     
     const today = new Date();
     let found = false;
     let effectiveToday = new Date(today);
-    let TenerCesarDia = new Date(today);
-    if (effectiveToday.getHours() >= 18) {
-        effectiveToday.setDate(effectiveToday.getDate() + 1);
+    if (today.getHours() >= 19) {
+        effectiveToday.setDate(effectiveToday.getDate()+1);
     }
+    // Búsqueda iterativa para sincronizar la fecha actual del sistema con el ciclo ático
     for (let year = 1; year < 100 && !found; year++) {
         for (let mes = 0; mes < 12 && !found; mes++) {
-            const fechainicial = InicioMes(year, mes);
+            const fechainicial = InicioDelMesGregoriano(year, mes);
             const fechafinal = new Date(fechainicial);
             fechafinal.setDate(fechafinal.getDate() + Mes(year, mes) - 1);
 
-            if (today >= fechainicial && today <= fechafinal) {
+            if (effectiveToday >= fechainicial && effectiveToday <= fechafinal) {
                 currentYear = year;
                 currentMonthIdx = mes;
                 selectedDate = effectiveToday;
@@ -266,14 +283,15 @@ function initCalendar() {
         }
     }
 
+    // Si la fecha actual sobrepasa el rango de 100 años del bucle, vuelve al inicio
     if (!found) {
         currentYear = 1;
         currentMonthIdx = 0;
-        const fechainicio = InicioMes(1, 0);
+        const fechainicio = InicioDelMesGregoriano(1, 0);
         selectedDate = new Date(fechainicio);
     }
 
-    //Eventos
+    // Escuchadores de eventos para los botones e interacciones de usuario
     const prevBtn = document.getElementById('prevMonth');
     const nextBtn = document.getElementById('nextMonth');
     
@@ -289,16 +307,17 @@ function initCalendar() {
         });
     }
 
+    // Permite cambiar de mes con las flechas del teclado
     document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowLeft') MesAnt();
         if (e.key === 'ArrowRight') MesSig();
     });
 
     renderCalendar();
-    Update(selectedDate,TenerCesarDia);
+    Update(selectedDate,today);
 }
 
-// Exportar funciones y getters para window si se requiere usarlos desde fuera
+// Exportar funciones y getters al objeto 'window' 
 window.MesAnt = MesAnt;
 window.MesSig = MesSig;
 window.renderCalendar = renderCalendar;
