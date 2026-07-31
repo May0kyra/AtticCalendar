@@ -49,7 +49,7 @@ function FaseLunar(lunarday) {
     if (fase < 0.22) return { name: 'Waxing Crescent', icon: '🌒' };
     if (fase < 0.28) return { name: 'First Quarter', icon: '🌓' };
     if (fase < 0.47) return { name: 'Waxing Gibbous', icon: '🌔' };
-    if (fase < 0.53) return { name: 'Full Moon', icon: '🌕' };
+    if (fase < 0.50) return { name: 'Full Moon', icon: '🌕' };
     if (fase < 0.72) return { name: 'Waning Gibbous', icon: '🌖' };
     if (fase < 0.78) return { name: 'Third Quarter', icon: '🌗' };
     if (fase < 0.95) return { name: 'Waning Crescent', icon: '🌘' };
@@ -115,19 +115,26 @@ function Update(date, opcion = null) {
         if (DOM.selectedPhaseName) DOM.selectedPhaseName.textContent = 'Select a date';
         if (DOM.selectedLunarDay) DOM.selectedLunarDay.textContent = '';
     } else {
-        const today = new Date();
-        const lunarDaySeleccionado = getLunarDay(date);
-        const lunarDayHoy = getLunarDay(today); //HOY en el calendario ático
-        const esMismoDiaAticoQuestion = Math.floor(lunarDaySeleccionado) === Math.floor(lunarDayHoy);
+        const RealDate = new Date(); // La fecha real del dispositivo
+        
+        let effectiveToday = new Date(RealDate);
+        if (RealDate.getHours() >= 19) {
+            effectiveToday.setDate(effectiveToday.getDate() + 1);
+        }
+        // Comparamos si la casilla seleccionada es la casilla marcada como "hoy"
+        const esMismoDiaAticoQuestion = date.toDateString() === effectiveToday.toDateString();
+        
         let fechadeCesar;
 
         if (esMismoDiaAticoQuestion) {
-            fechadeCesar = today; //si es el mismo día, muestra lo de tu dispositivo
-        } else if (opcion && opcion instanceof Date) {
+            fechadeCesar = RealDate; 
+        } else if (opcion && opcion instanceof Date && !isNaN(opcion)) {
             fechadeCesar = opcion;
         } else {
             fechadeCesar = date;
         }
+
+        const lunarDaySeleccionado = getLunarDay(date);
         const fase = FaseLunar(lunarDaySeleccionado);
         const diaciclo = Math.floor(lunarDaySeleccionado) + 1;
 
@@ -220,6 +227,8 @@ function renderCalendar() {
 function DiaSeleccionado(dia) {
     const date = FechaDelDiaNormal(currentYear, currentMonthIdx, dia);
     selectedDate = date;
+    let effeciveToday = new Date(dia);
+
     Update(selectedDate);
     renderCalendar();
     return selectedDate;
@@ -273,11 +282,13 @@ function initCalendar() {
             const fechainicial = InicioDelMesGregoriano(year, mes);
             const fechafinal = new Date(fechainicial);
             fechafinal.setDate(fechafinal.getDate() + Mes(year, mes) - 1);
-
             if (effectiveToday >= fechainicial && effectiveToday <= fechafinal) {
+                fechafinal.setDate(fechafinal.getDate() + Mes(year, mes) - 1);
+                const diffTime = effectiveToday - fechainicial;
+                const dayNum = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
                 currentYear = year;
                 currentMonthIdx = mes;
-                selectedDate = effectiveToday;
+                selectedDate = FechaDelDiaNormal(currentYear, currentMonthIdx, dayNum);
                 found = true;
             }
         }
@@ -317,7 +328,19 @@ function initCalendar() {
     Update(selectedDate,today);
 }
 
-// Exportar funciones y getters al objeto 'window' 
+document.addEventListener('DOMContentLoaded', () => {
+    const closeBtn = document.getElementById('Close');
+    const secondaryContainer = document.querySelector('.secondary-container');
+
+    closeBtn.addEventListener('click', () => {
+        secondaryContainer.classList.toggle('collapsed');
+        if (secondaryContainer.classList.contains('collapsed')) {
+            closeBtn.textContent = '⏷'; 
+        } else {
+            closeBtn.textContent = '≡'; 
+        }
+    });
+});
 window.MesAnt = MesAnt;
 window.MesSig = MesSig;
 window.renderCalendar = renderCalendar;
