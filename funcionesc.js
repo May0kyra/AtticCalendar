@@ -50,8 +50,8 @@ function FaseLunar(lunarday) {
     if (fase < 0.28) return { name: 'First Quarter', icon: '🌓' };
     if (fase < 0.47) return { name: 'Waxing Gibbous', icon: '🌔' };
     if (fase < 0.50) return { name: 'Full Moon', icon: '🌕' };
-    if (fase < 0.72) return { name: 'Waning Gibbous', icon: '🌖' };
-    if (fase < 0.78) return { name: 'Third Quarter', icon: '🌗' };
+    if (fase < 0.70) return { name: 'Waning Gibbous', icon: '🌖' };
+    if (fase < 0.74) return { name: 'Third Quarter', icon: '🌗' };
     if (fase < 0.95) return { name: 'Waning Crescent', icon: '🌘' };
     return { name: 'New Moon', icon: '🌑' };
 }
