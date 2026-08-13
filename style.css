@@ -22,10 +22,6 @@
             color: bisque;
             overflow: hidden;
             background: #080010;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            text-align: center;
         }
         
         #nav {
@@ -74,32 +70,8 @@
             color: rgb(254, 222, 116);
             text-decoration: none;
         }
-        .dashboard-grid {
-            display: flex;
-            flex-direction: row;
-            align-items: flex-start;
-            gap: 25px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .secondary-container {
-            flex: 0.8; 
-            background: #1a0a2e;
-            color: #fefdfd;
-            border: 1px solid #3d1f6e;
-            border-radius: 16px;
-            flex-direction: column;
-            height: auto;
-            transition: all ease 0.3s;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-            padding: 1.2rem;
-            box-sizing: border-box;
-            margin-top: 10px;
-        }
-        .secondary-container.collapsed hr, .secondary-container.collapsed .info-content {
-            display: none;
-        }
+                
+        /* IE6 fix */
         * html body{
             padding: 100px 0 0 230px;
         }
@@ -109,10 +81,10 @@
             width: 100%; 
         }
 
+        /* ===== ESTILOS DEL CALENDARIO ===== */
         .calendar-container {
-            width: 380px;
-            flex-shrink: 0;
-            margin: 10px 0;
+            max-width: 380px;
+            margin: 10px 0 10px 30px;;
             background: #1a0a2e;
             color: #fefdfd;
             border: 1px solid #3d1f6e;
@@ -150,35 +122,7 @@
             align-items: center;
             justify-content: center;
         }
-        .container-header {
-            display: flex;
-            align-items: center;
-            justify-content: center; 
-            position: relative;    
-            width: 100%;
-        }
-        .secondary-container.hidden {
-            display: none;
-        }
 
-        .container-header h2 {
-            margin: 0;
-            text-align: center;
-        }
-
-        .container-header .nav-btn {
-            position: absolute;
-            right: 0; 
-        }
-        .info-content {
-            font-size: 0.9rem;
-            color: #e0d6f6;
-            line-height: 1.6em;
-            text-align: justify;     
-            margin: 15px 0 0 0;   
-            padding: 1px 20px;
-            word-wrap: break-word; 
-        }
         .nav-btn:hover {
             background: #2a1040;
         }
@@ -350,414 +294,335 @@
             color: #fbbf24;
         }
 
-        .nav-toggle-btn {
-            display: none;
-            background: none;
-            border: 1px solid #3d1f6e;
-            border-radius: 6px;
-            color: bisque;
-            font-size: 1.2rem;
-            width: 38px;
-            height: 38px;
-            cursor: pointer;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #navOverlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.55);
-            z-index: 999;
-        }
-
-        #navOverlay.active {
-            display: block;
-        }
-
     @viewport {
         width: device-width;
         initial-scale: 1.0;
         maximum-scale: 1.0;
         user-scalable: yes;
     }
-    @media (max-width: 1080px) {
-                .dashboard-grid {
-                    flex-direction: column !important;
-                    align-items: center !important;
-                }
-                
-                .secondary-container {
-                    width: 100% !important;
-                    max-width: 360px !important;
-                    margin: 10px auto !important;
-                }
-                #nav {
-                    display: block !important;
-                    position: fixed !important;
-                    top: 0 !important;
-                    left: 0 !important;
-                    bottom: 0 !important;
-                    height: 100% !important;
-                    width: 240px !important;
-                    max-width: 80% !important;
-                    z-index: 1000;
-                    transform: translateX(-100%);
-                    transition: transform 0.3s ease;
-                    box-shadow: 3px 0 15px rgba(0,0,0,0.5);
-                    overflow-y: auto;
-                }
 
-                #nav.nav-open {
-                    transform: translateX(0) !important;
-                }
-                .nav-toggle-btn {
-                    display: flex !important;
-                    position: fixed !important;
-                    top: 10px !important;
-                    left: 12px !important;
-                    z-index: 1002 !important;
-                }
+        @media (max-width: 1080px) {
 
-                #logo {
-                    display: block !important;
-                    text-align: center !important;
-                }
-
-                #logo h1 {
-                    font-size: 0.9rem !important;
-                    text-align: center !important;
-                    margin: 0 !important;
-                }
-
-                #header {
-                    height: 55px !important;
-                    position: relative !important;
-                    display: flex !important;
-                    align-items: center !important;
-                    justify-content: center !important;
-                    background: #080010 !important;
-                    padding: 0 10px !important;
-                }
-
-                #header h1 {
-                    font-size: 0.9rem !important;
-                    margin: 0 !important;
-                    padding: 0 !important;
-                    text-align: center !important;
-                    letter-spacing: 1px !important;
-                }
-
-                main {
-                    position: relative !important;
-                    left: 0 !important;
-                    top: 0 !important;
-                    right: 0 !important;
-                    bottom: 0 !important;
-                    width: 100% !important;
-                    min-height: 100vh !important;
-                    padding: 8px !important;
-                    background-size: 150px auto !important;
-                    background-position: center !important;
-                }
-
-                main .innertube {
-                    margin: 0 !important;
-                    padding: 4px !important;
-                }
-
-                .calendar-container {
-                    width: 100% !important;
-                    max-width: 360px !important;
-                    margin: 8px auto !important;
-                    padding: 0.8rem !important;
-                    border-radius: 12px !important;
-                    border: 1px solid #3d1f6e !important;
-                }
-
-                /* Header del calendario */
-                .calendar-header {
-                    margin-bottom: 0.8rem !important;
-                }
-
-                .calendar-header h2 {
-                    font-size: 0.85rem !important;
-                    min-width: 70px !important;
-                }
-
-                .nav-btn {
-                    width: 30px !important;
-                    height: 30px !important;
-                    font-size: 0.8rem !important;
-                    border-width: 1px !important;
-                }
-                .selected-info {
-                    padding: 6px 8px !important;
-                    margin-bottom: 0.6rem !important;
-                    border-radius: 8px !important;
-                }
-
-                .selected-info .date-display {
-                    font-size: 0.65rem !important;
-                    margin-bottom: 2px !important;
-                }
-
-                .selected-info .phase-display {
-                    gap: 10px !important;
-                }
-
-                .selected-info .phase-icon {
-                    font-size: 1.4rem !important;
-                }
-
-                .selected-info .phase-name {
-                    font-size: 0.8rem !important;
-                }
-
-                .selected-info .phase-sub {
-                    font-size: 0.6rem !important;
-                }
-
-                .weekdays {
-                    font-size: 0.55rem !important;
-                    margin-bottom: 3px !important;
-                    letter-spacing: 0px !important;
-                }
-
-                .days-grid {
-                    gap: 2px !important;
-                }
-
-                .days-grid .day-cell {
-                    font-size: 0.65rem !important;
-                    border-radius: 4px !important;
-                    min-height: 28px !important;
-                    padding: 1px !important;
-                    border-width: 1px !important;
-                }
-
-                .days-grid .day-cell .mini-moon {
-                    font-size: 0.4rem !important;
-                    margin-top: 0px !important;
-                    line-height: 1 !important;
-                }
-
-                .days-grid .day-cell.today {
-                    border-width: 2px !important;
-                }
-
-                .days-grid .day-cell.selected {
-                    transform: scale(1.02) !important;
-                }
-
-                .footer-info {
-                    font-size: 0.55rem !important;
-                    margin-top: 0.6rem !important;
-                    padding-top: 0.5rem !important;
-                    flex-wrap: wrap !important;
-                    gap: 2px !important;
-                    justify-content: center !important;
-                }
-
-                .footer-info div {
-                    padding: 2px 4px !important;
-                }
-
-                .footer-info .highlight {
-                    font-size: 0.55rem !important;
-                }
-
-                body {
-                    overflow: auto !important;
-                    height: auto !important;
-                    max-height: none !important;
-                    padding: 0 !important;
-                    margin: 0 !important;
-                }
-
-                .moon-phase {
-                    padding: 6px !important;
-                    margin-bottom: 0.6rem !important;
-                }
-
-                .moon-phase .phase-icon {
-                    font-size: 1.6rem !important;
-                }
-
-                .moon-phase .phase-name {
-                    font-size: 0.7rem !important;
-                }
+            #nav {
+                display: none !important;
             }
 
-            @media (max-width: 400px) {
-                #header {
-                    height: 38px !important;
-                }
-
-                #header h1 {
-                    font-size: 0.75rem !important;
-                }
-
-                .calendar-container {
-                    max-width: 100% !important;
-                    padding: 0.5rem !important;
-                    border-radius: 8px !important;
-                    margin: 4px auto !important;
-                }
-
-                .calendar-header h2 {
-                    font-size: 0.7rem !important;
-                    min-width: 55px !important;
-                }
-
-                .nav-btn {
-                    width: 24px !important;
-                    height: 24px !important;
-                    font-size: 0.6rem !important;
-                }
-
-                .days-grid {
-                    gap: 1px !important;
-                }
-
-                .days-grid .day-cell {
-                    font-size: 0.55rem !important;
-                    min-height: 22px !important;
-                    border-radius: 3px !important;
-                }
-
-                .days-grid .day-cell .mini-moon {
-                    font-size: 0.3rem !important;
-                }
-
-                .selected-info .phase-icon {
-                    font-size: 1.2rem !important;
-                }
-
-                .selected-info .phase-name {
-                    font-size: 0.7rem !important;
-                }
-
-                .selected-info .date-display {
-                    font-size: 0.55rem !important;
-                }
-
-                .weekdays {
-                    font-size: 0.45rem !important;
-                }
-
-                .footer-info {
-                    font-size: 0.45rem !important;
-                    flex-direction: column !important;
-                    align-items: center !important;
-                    gap: 1px !important;
-                }
-
-                .footer-info div {
-                    padding: 1px 2px !important;
-                }
-
-                .moon-phase .phase-icon {
-                    font-size: 1.3rem !important;
-                }
-
-                .moon-phase .phase-name {
-                    font-size: 0.6rem !important;
-                }
+            #logo {
+                display: none !important;
             }
 
-            @media (max-width: 850px) and (orientation: landscape) {
-                .calendar-container {
-                    max-width: 300px !important;
-                    padding: 0.5rem !important;
-                }
-
-                .days-grid .day-cell {
-                    font-size: 0.55rem !important;
-                    min-height: 20px !important;
-                }
-
-                .calendar-header h2 {
-                    font-size: 0.7rem !important;
-                }
-
-                .nav-btn {
-                    width: 24px !important;
-                    height: 24px !important;
-                }
-
-                #header {
-                    height: 35px !important;
-                }
-
-                main {
-                    padding: 4px !important;
-                }
-
-                .days-grid {
-                    gap: 1px !important;
-                }
+            #header {
+                height: 45px !important;
+                position: relative !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                background: #080010 !important;
+                padding: 0 10px !important;
             }
 
-            @media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 400dpi) {
-                .days-grid .day-cell {
-                    border-width: 0.5px !important;
-                }
-
-                .calendar-container {
-                    border-width: 0.5px !important;
-                }
+            #header h1 {
+                font-size: 0.9rem !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                text-align: center !important;
+                letter-spacing: 1px !important;
             }
-            @media screen and (max-width: 900px) {
-                #nav {
-                    transform: translateX(-100%) !important;
-                }   
-                #nav .innertube {
-                    padding-top: 48px !important;
-                    box-sizing: border-box !important;
-                }
-                .nav-toggle-btn {
-                    display: flex !important;
-                    position: fixed !important;
-                    top: 10px !important;
-                    left: 12px !important;
-                    z-index: 1002 !important;
-                }
 
-                #header {
-                    position: relative !important;
-                    height: auto !important;
-                    min-height: 48px !important;
-                    overflow: visible !important;
-                    text-align: left;
-                    display: flex !important;
-                    align-items: center !important;
-                    justify-content: center !important;
-                    padding: 8px 12px 8px 52px !important;
-                    box-sizing: border-box !important;
-                }
-
-                main {
-                    position: relative !important;
-                    top: 0 !important;
-                    left: 0 !important;
-                    right: 0 !important;
-                    bottom: 0 !important;
-                    width: 100% !important;
-                    padding: 10px 0 !important;
-                }
-
-                main .innertube {
-                    margin: 0 !important;
-                    display: flex;
-                    justify-content: center;
-                }
-                .calendar-container {
-                    width: 90% !important;
-                    max-width: 360px !important;
-                    margin: 10px auto !important;
-                    padding: 12px !important;
-                    box-sizing: border-box !important;
-                }
+            main {
+                position: relative !important;
+                left: 0 !important;
+                top: 0 !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                width: 100% !important;
+                min-height: 100vh !important;
+                padding: 8px !important;
+                background-size: 150px auto !important;
+                background-position: center !important;
             }
+
+            main .innertube {
+                margin: 0 !important;
+                padding: 4px !important;
+            }
+
+            .calendar-container {
+                width: 100% !important;
+                max-width: 360px !important;
+                margin: 8px auto !important;
+                padding: 0.8rem !important;
+                border-radius: 12px !important;
+                border: 1px solid #3d1f6e !important;
+            }
+
+            /* Header del calendario */
+            .calendar-header {
+                margin-bottom: 0.8rem !important;
+            }
+
+            .calendar-header h2 {
+                font-size: 0.85rem !important;
+                min-width: 70px !important;
+            }
+
+            .nav-btn {
+                width: 30px !important;
+                height: 30px !important;
+                font-size: 0.8rem !important;
+                border-width: 1px !important;
+            }
+
+            /* Info seleccionada */
+            .selected-info {
+                padding: 6px 8px !important;
+                margin-bottom: 0.6rem !important;
+                border-radius: 8px !important;
+            }
+
+            .selected-info .date-display {
+                font-size: 0.65rem !important;
+                margin-bottom: 2px !important;
+            }
+
+            .selected-info .phase-display {
+                gap: 10px !important;
+            }
+
+            .selected-info .phase-icon {
+                font-size: 1.4rem !important;
+            }
+
+            .selected-info .phase-name {
+                font-size: 0.8rem !important;
+            }
+
+            .selected-info .phase-sub {
+                font-size: 0.6rem !important;
+            }
+
+            .weekdays {
+                font-size: 0.55rem !important;
+                margin-bottom: 3px !important;
+                letter-spacing: 0px !important;
+            }
+
+            .days-grid {
+                gap: 2px !important;
+            }
+
+            .days-grid .day-cell {
+                font-size: 0.65rem !important;
+                border-radius: 4px !important;
+                min-height: 28px !important;
+                padding: 1px !important;
+                border-width: 1px !important;
+            }
+
+            .days-grid .day-cell .mini-moon {
+                font-size: 0.4rem !important;
+                margin-top: 0px !important;
+                line-height: 1 !important;
+            }
+
+            .days-grid .day-cell.today {
+                border-width: 2px !important;
+            }
+
+            .days-grid .day-cell.selected {
+                transform: scale(1.02) !important;
+            }
+
+            .footer-info {
+                font-size: 0.55rem !important;
+                margin-top: 0.6rem !important;
+                padding-top: 0.5rem !important;
+                flex-wrap: wrap !important;
+                gap: 2px !important;
+                justify-content: center !important;
+            }
+
+            .footer-info div {
+                padding: 2px 4px !important;
+            }
+
+            .footer-info .highlight {
+                font-size: 0.55rem !important;
+            }
+
+            body {
+                overflow: auto !important;
+                height: auto !important;
+                max-height: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .moon-phase {
+                padding: 6px !important;
+                margin-bottom: 0.6rem !important;
+            }
+
+            .moon-phase .phase-icon {
+                font-size: 1.6rem !important;
+            }
+
+            .moon-phase .phase-name {
+                font-size: 0.7rem !important;
+            }
+        }
+
+        @media (max-width: 400px) {
+            #header {
+                height: 38px !important;
+            }
+
+            #header h1 {
+                font-size: 0.75rem !important;
+            }
+
+            .calendar-container {
+                max-width: 100% !important;
+                padding: 0.5rem !important;
+                border-radius: 8px !important;
+                margin: 4px auto !important;
+            }
+
+            .calendar-header h2 {
+                font-size: 0.7rem !important;
+                min-width: 55px !important;
+            }
+
+            .nav-btn {
+                width: 24px !important;
+                height: 24px !important;
+                font-size: 0.6rem !important;
+            }
+
+            .days-grid {
+                gap: 1px !important;
+            }
+
+            .days-grid .day-cell {
+                font-size: 0.55rem !important;
+                min-height: 22px !important;
+                border-radius: 3px !important;
+            }
+
+            .days-grid .day-cell .mini-moon {
+                font-size: 0.3rem !important;
+            }
+
+            .selected-info .phase-icon {
+                font-size: 1.2rem !important;
+            }
+
+            .selected-info .phase-name {
+                font-size: 0.7rem !important;
+            }
+
+            .selected-info .date-display {
+                font-size: 0.55rem !important;
+            }
+
+            .weekdays {
+                font-size: 0.45rem !important;
+            }
+
+            .footer-info {
+                font-size: 0.45rem !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 1px !important;
+            }
+
+            .footer-info div {
+                padding: 1px 2px !important;
+            }
+
+            .moon-phase .phase-icon {
+                font-size: 1.3rem !important;
+            }
+
+            .moon-phase .phase-name {
+                font-size: 0.6rem !important;
+            }
+        }
+
+        @media (max-width: 850px) and (orientation: landscape) {
+            .calendar-container {
+                max-width: 300px !important;
+                padding: 0.5rem !important;
+            }
+
+            .days-grid .day-cell {
+                font-size: 0.55rem !important;
+                min-height: 20px !important;
+            }
+
+            .calendar-header h2 {
+                font-size: 0.7rem !important;
+            }
+
+            .nav-btn {
+                width: 24px !important;
+                height: 24px !important;
+            }
+
+            #header {
+                height: 35px !important;
+            }
+
+            main {
+                padding: 4px !important;
+            }
+
+            .days-grid {
+                gap: 1px !important;
+            }
+        }
+
+        @media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 400dpi) {
+            .days-grid .day-cell {
+                border-width: 0.5px !important;
+            }
+
+            .calendar-container {
+                border-width: 0.5px !important;
+            }
+        }
+        @media screen and (max-width: 900px) {
+            /* 1. Ocultamos el menú lateral */
+            #nav {
+                display: none !important;
+            }
+
+            #header {
+                position: relative !important;
+                height: auto !important;
+                text-align: center;
+            }
+
+            main {
+                position: relative !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                width: 100% !important;
+                padding: 10px 0 !important;
+            }
+
+            main .innertube {
+                margin: 0 !important;
+                display: flex;
+                justify-content: center;
+            }
+            .calendar-container {
+                width: 90% !important;
+                max-width: 360px !important;
+                margin: 10px auto !important;
+                padding: 12px !important;
+                box-sizing: border-box !important;
+            }
+        }
