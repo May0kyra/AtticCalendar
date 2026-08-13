@@ -23,7 +23,7 @@ function initDOM() {
 
 // Constantes globales del calendario
 const MONTH_NAMES = ["Hekatombaion","Metageitnion","Boedromion","Pyanepsion","Maimakterion","Poseideon","Gamelion","Anthesterion","Elaphebolion","Mounichion","Thargelion","Skirophorion"];
-const FECHA_BASE = new Date(2026, 6, 16); // 16 de Julio de 2026 (Punto de referencia base)
+const FECHA_BASE = new Date(2026, 6, 15); // 15 de Julio de 2026 (Punto de referencia base)
 const CICLO_LUNAR = 29.53058867; // Duración promedio de un mes lunar en días
 
 // Variables de estado global
