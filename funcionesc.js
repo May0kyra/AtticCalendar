@@ -268,14 +268,13 @@ function MesSig() {
    Renderiza la interfaz por primera vez.
  */
 function initCalendar() {
-    initDOM();
-    
     const today = new Date();
     let found = false;
     let effectiveToday = new Date(today);
     if (today.getHours() >= 19) {
         effectiveToday.setDate(effectiveToday.getDate()+1);
     }
+    effectiveToday.setHours(0, 0, 0, 0);
     // Búsqueda iterativa para sincronizar la fecha actual del sistema con el ciclo ático
     for (let year = 1; year < 100 && !found; year++) {
         for (let mes = 0; mes < 12 && !found; mes++) {
