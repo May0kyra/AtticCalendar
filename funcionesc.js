@@ -23,13 +23,14 @@ function initDOM() {
 
 // Constantes globales del calendario
 const MONTH_NAMES = ["Hekatombaion","Metageitnion","Boedromion","Pyanepsion","Maimakterion","Poseideon","Gamelion","Anthesterion","Elaphebolion","Mounichion","Thargelion","Skirophorion"];
-const FECHA_BASE = new Date(2026, 6, 16); // 16 de Julio de 2026 (Punto de referencia base)
+const FECHA_BASE = new Date(2026, 6, 15); // 15 de Julio de 2026 (Punto de referencia base)
 const CICLO_LUNAR = 29.53058867; // Duración promedio de un mes lunar en días
 
 // Variables de estado global
 let currentMonthIdx = 0;
 let currentYear = 1;     
 let selectedDate = null;  
+let idiomaActual = 'es'; 
 
 //Calcula el día exacto dentro del ciclo lunar (0 a 29.53) para una fecha dada.
 
@@ -152,6 +153,40 @@ function Update(date, opcion = null) {
         if (DOM.selectedLunarDay) DOM.selectedLunarDay.textContent = diaciclo;
     }
 }
+/*function ActualizarFestival(date) {
+    const secondaryContainer = document.querySelector('.secondary-container');
+    const festTitle = document.getElementById('FestTitle');
+    const festInfo = document.getElementById('FestInfo');
+    const closeBtn = document.getElementById('Close');
+
+    if (!date) {
+        secondaryContainer.classList.add('hidden'); //oculta el cuadro de festivales si no hay fecha seleccionada
+        return;
+    }
+
+    const lunarDay = getLunarDay(date);
+    const diaciclo = Math.floor(lunarDay) + 1;
+    const totalDias = Mes(currentYear, currentMonthIdx);
+    const fase = FaseLunar(lunarDay);
+
+    const festival = obtenerFestival(diaciclo,totalDias,fase.name,currentMonthIdx);
+
+    if (festival) {
+        // Hay festival -> muestra el contenedor
+        festTitle.textContent = festival.nombre;
+        festInfo.innerHTML = festival.descripcion;
+
+        secondaryContainer.classList.remove('hidden');
+
+        // Al seleccionar un nuevo festival, lo mostramos abierto
+        secondaryContainer.classList.remove('collapsed');
+        closeBtn.textContent = '≡';
+
+    } else {
+        // No hay festival se oculta
+        secondaryContainer.classList.add('hidden');
+    }
+}*/
 /*
     Dibuja la cuadrícula del calendario en el HTML (`daysGrid`) e inserta celdas vacías de desfase, 
     asigna los días, detecta si es el día actual, si es luna nueva o si está seleccionado, y construye las celdas que se pueden tocar.
@@ -227,10 +262,11 @@ function renderCalendar() {
 function DiaSeleccionado(dia) {
     const date = FechaDelDiaNormal(currentYear, currentMonthIdx, dia);
     selectedDate = date;
-    let effeciveToday = new Date(dia);
 
     Update(selectedDate);
+    //ActualizarFestival(selectedDate);
     renderCalendar();
+
     return selectedDate;
 }
 
@@ -244,7 +280,7 @@ function MesAnt() {
     selectedDate = null;
     renderCalendar();
     const fechainicio = InicioDelMesGregoriano(currentYear, currentMonthIdx);
-    /*selectedDate = new Date(fechainicio);*/
+    //ActualizarFestival(null);
     Update(selectedDate);
 }
 
@@ -258,7 +294,7 @@ function MesSig() {
     selectedDate = null;
     renderCalendar();
     const fechainicio = InicioDelMesGregoriano(currentYear, currentMonthIdx);
-    /*selectedDate = new Date(fechainicio);*/
+    //ActualizarFestival(null);
     Update(selectedDate);
 }
 
@@ -276,6 +312,7 @@ function initCalendar() {
     if (today.getHours() >= 19) {
         effectiveToday.setDate(effectiveToday.getDate()+1);
     }
+    effectiveToday.setHours(0, 0, 0, 0);
     // Búsqueda iterativa para sincronizar la fecha actual del sistema con el ciclo ático
     for (let year = 1; year < 100 && !found; year++) {
         for (let mes = 0; mes < 12 && !found; mes++) {
@@ -326,21 +363,24 @@ function initCalendar() {
 
     renderCalendar();
     Update(selectedDate,today);
+    //ActualizarFestival(selectedDate);
 }
-
+/*
 document.addEventListener('DOMContentLoaded', () => {
     const closeBtn = document.getElementById('Close');
     const secondaryContainer = document.querySelector('.secondary-container');
 
     closeBtn.addEventListener('click', () => {
         secondaryContainer.classList.toggle('collapsed');
+
         if (secondaryContainer.classList.contains('collapsed')) {
             closeBtn.textContent = '⏷'; 
         } else {
             closeBtn.textContent = '≡'; 
         }
     });
-});
+});*/
+
 window.MesAnt = MesAnt;
 window.MesSig = MesSig;
 window.renderCalendar = renderCalendar;
