@@ -9,7 +9,7 @@
 </head>
 <body>
 
-     <header id="header">
+    <header id="header">
         <div id="logo">
             <h1>Attic Calendar</h1>
         </div>
@@ -20,6 +20,7 @@
             
     <main>
         <div class="innertube">
+            <div class="dashboard-grid">
             <div class="calendar-container">
                 <div class="calendar-header">
                     <button class="nav-btn" id="prevMonth">◀</button>
@@ -41,21 +42,28 @@
                 </div>
 
                 <div class="weekdays">
-                    <div>Dom</div><div>Lun</div><div>Mar</div><div>Mié</div>
-                    <div>Jue</div><div>Vie</div><div>Sáb</div>
+                    <div>Dom</div><div>Mon</div><div>Tue</div><div>Wed</div>
+                    <div>Thurs</div><div>Fri</div><div>Sat</div>
                 </div>
 
                 <div class="days-grid" id="daysGrid"></div>
-
                 <div class="footer-info">
                     <div>Month <span id="monthNumber" class="highlight">1</span>/12</div>
                 </div>
             </div>
-
+            <div class="secondary-container">
+                <div class="container-header">
+                <h2 id="FestTitle">Festival</h2>
+                <button class="nav-btn" id="Close">≡</button>
+                </div>
+                <hr style="border-color:#3d1f6e; margin: 10px 0;">
+                <p class="info-content" id="FestInfo">Information</p>
+            </div>
         </div>
+    </div>
     </main>
 
-     <nav id="nav">
+    <nav id="nav">
         <div class="innertube">
             <h1>Resources:</h1>
             <ul>
@@ -72,11 +80,12 @@
         </div>
     </nav>
 
+    <script src="Festivals.js"></script>
     <script src="funcionesc.js"></script>
     
     <script>
         // Esperar a que el DOM esté cargado
-         document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function() {
             initCalendar();
 
             const navToggle = document.getElementById('navToggle');
@@ -128,6 +137,7 @@
             originalRender();
             updateYearDisplay();
         };
+        
 
     </script>
 </body>
