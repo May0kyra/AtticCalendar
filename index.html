@@ -9,11 +9,14 @@
 </head>
 <body>
 
-    <header id="header">
+     <header id="header">
         <div id="logo">
             <h1>Attic Calendar</h1>
         </div>
+        <button class="nav-toggle-btn" id="navToggle" aria-label="Abrir menú">☰</button>
     </header>
+
+    <div id="navOverlay"></div>
             
     <main>
         <div class="innertube">
@@ -52,11 +55,14 @@
         </div>
     </main>
 
-    <nav id="nav">
+     <nav id="nav">
         <div class="innertube">
             <h1>Resources:</h1>
             <ul>
                 <li><a href="https://www.hellenion.org" target="_blank">Hellenion</a></li>
+            </ul>
+            <ul>
+                <li><a href="https://www.theoi.com" target="_blank">Theoi Greek Mythology</a></li>
             </ul>
             <hr style="border-color:#3d1f6e;">
             <div><small>If there are any issues or innacuracies, let us know!</small></div>
@@ -70,8 +76,28 @@
     
     <script>
         // Esperar a que el DOM esté cargado
-        document.addEventListener('DOMContentLoaded', function() {
+         document.addEventListener('DOMContentLoaded', function() {
             initCalendar();
+
+            const navToggle = document.getElementById('navToggle');
+            const navEl = document.getElementById('nav');
+            const navOverlay = document.getElementById('navOverlay');
+
+            function toggleNav() {
+                navEl.classList.toggle('nav-open');
+                navOverlay.classList.toggle('active');
+            }
+
+            if (navToggle) navToggle.addEventListener('click', toggleNav);
+            if (navOverlay) navOverlay.addEventListener('click', toggleNav);
+
+            // Cierra el menú al tocar un link
+            navEl.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', () => {
+                    navEl.classList.remove('nav-open');
+                    navOverlay.classList.remove('active');
+                });
+            });
         });
 
         // Función para actualizar el año en la barra lateral
