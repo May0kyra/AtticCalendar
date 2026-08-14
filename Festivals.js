@@ -152,7 +152,7 @@ const festivales = [
                 Cada mes, el noveno día del calendario es dedicado a los dioses Helius (Helios), Rheia (Rhea) y las Musas.
             <p>
             <p>
-            La única cita que se puede encontrar al respecto es una mención en el libro de LABRYS: Household Worship con sus citas, pero no pudimos encontrar el extracto exacto de las citas.
+            La única cita que se puede encontrar al respecto es una mención en el libro de <i>LABRYS: Household Worship</i>, pero no pudimos encontrar el extracto exacto de las citas.
             <p>
             <p>
                 De todos modos, en la práctica moderna, es una fecha usada para reverenciar a los dioses.
