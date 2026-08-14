@@ -13,10 +13,14 @@
         <div id="logo">
             <h1>Attic Calendar</h1>
         </div>
+        <button class="nav-toggle-btn" id="navToggle" aria-label="Abrir menú">☰</button>
     </header>
+
+    <div id="navOverlay"></div>
             
     <main>
         <div class="innertube">
+            <div class="dashboard-grid">
             <div class="calendar-container">
                 <div class="calendar-header">
                     <button class="nav-btn" id="prevMonth">◀</button>
@@ -38,18 +42,26 @@
                 </div>
 
                 <div class="weekdays">
-                    <div>Dom</div><div>Lun</div><div>Mar</div><div>Mié</div>
-                    <div>Jue</div><div>Vie</div><div>Sáb</div>
+                    <div>Dom</div><div>Mon</div><div>Tue</div><div>Wed</div>
+                    <div>Thurs</div><div>Fri</div><div>Sat</div>
                 </div>
 
                 <div class="days-grid" id="daysGrid"></div>
-
                 <div class="footer-info">
                     <div>Month <span id="monthNumber" class="highlight">1</span>/12</div>
                 </div>
             </div>
 
+            <div class="secondary-container">
+                <div class="container-header">
+                <h2 id="FestTitle">Festival</h2>
+                <button class="nav-btn" id="Close">≡</button>
+                </div>
+                <hr style="border-color:#3d1f6e; margin: 10px 0;">
+                <p class="info-content" id="FestInfo">Information</p>
+            </div>
         </div>
+    </div>
     </main>
 
     <nav id="nav">
@@ -58,20 +70,46 @@
             <ul>
                 <li><a href="https://www.hellenion.org" target="_blank">Hellenion</a></li>
             </ul>
+            <ul>
+                <li><a href="https://www.theoi.com" target="_blank">Theoi Greek Mythology</a></li>
+            </ul>
             <hr style="border-color:#3d1f6e;">
             <div><small>If there are any issues or innacuracies, let us know!</small></div>
             <ul>
                 <li><a href="https://discord.gg/jq4zEtCnBT" target="_blank">Our Discord</a></li>
             </ul>
+             <hr style="border-color:#3d1f6e;">
+             <div><small>English translations for the festival information coming soon!</small></div>
         </div>
     </nav>
 
-    <script src="funcionesc.js"></script>
+    <script src="Festivals.js"></script>
+    <script src="funcionesc.js"></script> 
     
     <script>
         // Esperar a que el DOM esté cargado
         document.addEventListener('DOMContentLoaded', function() {
             initCalendar();
+
+            const navToggle = document.getElementById('navToggle');
+            const navEl = document.getElementById('nav');
+            const navOverlay = document.getElementById('navOverlay');
+
+            function toggleNav() {
+                navEl.classList.toggle('nav-open');
+                navOverlay.classList.toggle('active');
+            }
+
+            if (navToggle) navToggle.addEventListener('click', toggleNav);
+            if (navOverlay) navOverlay.addEventListener('click', toggleNav);
+
+            // Cierra el menú al tocar un link
+            navEl.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', () => {
+                    navEl.classList.remove('nav-open');
+                    navOverlay.classList.remove('active');
+                });
+            });
         });
 
         // Función para actualizar el año en la barra lateral
@@ -102,6 +140,7 @@
             originalRender();
             updateYearDisplay();
         };
+        
 
     </script>
 </body>

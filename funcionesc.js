@@ -30,6 +30,7 @@ const CICLO_LUNAR = 29.53058867; // Duración promedio de un mes lunar en días
 let currentMonthIdx = 0;
 let currentYear = 1;     
 let selectedDate = null;  
+let idiomaActual = 'es'; 
 
 //Calcula el día exacto dentro del ciclo lunar (0 a 29.53) para una fecha dada.
 
@@ -74,6 +75,8 @@ function ProxNew(date) {
 
 function InicioDelMesGregoriano(year, mesidx) {
     const totalMeses = (year - 1) * 12 + mesidx;
+    // +1: el mes empieza el día DESPUÉS de la luna nueva (waxing crescent),
+    // así la luna nueva exacta queda como el ÚLTIMO día del mes anterior.
     const totalDays = Math.round(totalMeses * CICLO_LUNAR);
     const startDate = new Date(FECHA_BASE);
     startDate.setDate(startDate.getDate() + totalDays);
@@ -152,6 +155,44 @@ function Update(date, opcion = null) {
         if (DOM.selectedLunarDay) DOM.selectedLunarDay.textContent = diaciclo;
     }
 }
+function ActualizarFestival(date) {
+    const secondaryContainer = document.querySelector('.secondary-container');
+    const festTitle = document.getElementById('FestTitle');
+    const festInfo = document.getElementById('FestInfo');
+    const closeBtn = document.getElementById('Close');
+
+    if (!date) {
+        secondaryContainer.classList.add('hidden'); //oculta el cuadro de festivales si no hay fecha seleccionada
+        return;
+    }
+
+    const lunarDay = getLunarDay(date);
+    const fase = FaseLunar(lunarDay);
+    const totalDias = Mes(currentYear, currentMonthIdx);
+
+    // diaciclo = posición real del día dentro del MES calendario mostrado (ya con el ajuste +1),
+    // en vez de calcularse desde lunarDay directo (que ya no coincide con el día 1 del mes)
+    const mesInicio = InicioDelMesGregoriano(currentYear, currentMonthIdx);
+    const diaciclo = Math.round((date - mesInicio) / (1000 * 60 * 60 * 24)) + 1;
+
+    const festival = obtenerFestival(diaciclo,totalDias,fase.name,currentMonthIdx);
+
+    if (festival) {
+        // Hay festival -> muestra el contenedor
+        festTitle.textContent = festival.nombre;
+        festInfo.innerHTML = festival.descripcion;
+
+        secondaryContainer.classList.remove('hidden');
+
+        // Al seleccionar un nuevo festival, lo mostramos abierto
+        secondaryContainer.classList.remove('collapsed');
+        closeBtn.textContent = '≡';
+
+    } else {
+        // No hay festival se oculta
+        secondaryContainer.classList.add('hidden');
+    }
+}
 /*
     Dibuja la cuadrícula del calendario en el HTML (`daysGrid`) e inserta celdas vacías de desfase, 
     asigna los días, detecta si es el día actual, si es luna nueva o si está seleccionado, y construye las celdas que se pueden tocar.
@@ -177,10 +218,19 @@ function renderCalendar() {
 
     if (DOM.phaseIcon) DOM.phaseIcon.textContent = fase.icon;
     if (DOM.phaseName) DOM.phaseName.textContent = fase.name;
-    
-    /*if (!selectedDate) {
-        Update(null,null);
-    }*/
+
+    // Encuentra el ÚNICO día del mes más cercano al punto exacto de luna nueva
+    let newMoonDayIndex = 1;
+    let minDistance = Infinity;
+    for (let d = 1; d <= dias_en_el_Mes; d++) {
+        const fecha = FechaDelDiaNormal(currentYear, currentMonthIdx, d);
+        const lunarD = getLunarDay(fecha);
+        const dist = Math.min(lunarD, CICLO_LUNAR - lunarD);
+        if (dist < minDistance) {
+            minDistance = dist;
+            newMoonDayIndex = d;
+        }
+    }
 
     let html = '';
     // Agrega casillas transparentes/vacías según el día de la semana en que inicia el mes
@@ -194,8 +244,15 @@ function renderCalendar() {
 
         // Calcula el día lunar para esta celda
         const dayLunar = getLunarDay(currentDate);
-        const dayPhase = FaseLunar(dayLunar);
-        const isNewMoon = dayPhase.name === 'New Moon';
+        let dayPhase = FaseLunar(dayLunar);
+
+        // El día 1 del mes SIEMPRE es Waxing Crescent
+        if (day === 1) {
+            dayPhase = { name: 'Waxing Crescent', icon: '🌒' };
+        }
+
+       // Determina si la casilla actual es la luna nueva del mes
+        const isNewMoon = day === newMoonDayIndex;
 
         // Compara el día del ciclo lunar de 'today' con el de la casilla
         const today = new Date();
@@ -227,10 +284,11 @@ function renderCalendar() {
 function DiaSeleccionado(dia) {
     const date = FechaDelDiaNormal(currentYear, currentMonthIdx, dia);
     selectedDate = date;
-    let effeciveToday = new Date(dia);
 
     Update(selectedDate);
+    ActualizarFestival(selectedDate);
     renderCalendar();
+
     return selectedDate;
 }
 
@@ -245,6 +303,7 @@ function MesAnt() {
     renderCalendar();
     const fechainicio = InicioDelMesGregoriano(currentYear, currentMonthIdx);
     /*selectedDate = new Date(fechainicio);*/
+    ActualizarFestival(null);
     Update(selectedDate);
 }
 
@@ -259,6 +318,7 @@ function MesSig() {
     renderCalendar();
     const fechainicio = InicioDelMesGregoriano(currentYear, currentMonthIdx);
     /*selectedDate = new Date(fechainicio);*/
+    ActualizarFestival(null);
     Update(selectedDate);
 }
 
@@ -276,6 +336,7 @@ function initCalendar() {
     if (today.getHours() >= 19) {
         effectiveToday.setDate(effectiveToday.getDate()+1);
     }
+    effectiveToday.setHours(0, 0, 0, 0);
     // Búsqueda iterativa para sincronizar la fecha actual del sistema con el ciclo ático
     for (let year = 1; year < 100 && !found; year++) {
         for (let mes = 0; mes < 12 && !found; mes++) {
@@ -326,6 +387,7 @@ function initCalendar() {
 
     renderCalendar();
     Update(selectedDate,today);
+    ActualizarFestival(selectedDate);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -334,6 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     closeBtn.addEventListener('click', () => {
         secondaryContainer.classList.toggle('collapsed');
+
         if (secondaryContainer.classList.contains('collapsed')) {
             closeBtn.textContent = '⏷'; 
         } else {
@@ -341,6 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
 window.MesAnt = MesAnt;
 window.MesSig = MesSig;
 window.renderCalendar = renderCalendar;

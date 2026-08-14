@@ -87,13 +87,35 @@ const festivales = [
         coincide: (diaciclo) => diaciclo === 3
     },
     {
-        nombre: "Día de Afrodita, Hermes y Heracles",
-        descripcion: "Consagrado a Afrodita, Hermes, Heracles y Eros.",
+        nombre: "Cuarto día: Aphrodite, Eros, Hermes y Herakles",
+        descripcion: `
+        <p>
+            Cada mes, el cuarto día del calendario es dedicado a la diosa Aphrodite (Afrodita) y su hijo Eros, así como a los dioses Hermes y Herakles (Heracles).
+        <p>
+        <p>
+            En la tradición antigua, el cuarto día de <i>Hekatombaion</i> era en honor al rol de Afrodita en la unificación de Ática, así como por su cumpleaños.
+        <p>
+        <p>
+            Se dice que Eros está asociado al cuarto día gracias a su madre Afrodita, debido a que estuvo presente el día de su nacimiento (basándonos en el mito donde ella sale del mar dando a luz a Eros e Himeros). Sin embargo, en los mitos más antiguos, Eros fue el cuarto dios en existir y era visto como uno de los dioses primordiales. Siglos después Parminedes escribió que Eros era un hijo de la diosa Nyx, hasta llegar a la versión que conocemos hoy (hijo de Ares y Afrodita).
+        <p>
+        <p>
+            El número 4 es el número sagrado de Hermes; en el Himno Homérico 4, se nos cuenta que él nació en un día cuatro. Aparte de eso, es el dios "del cruce de los cuatro caminos".
+        <p>
+        <p>
+            El cumpleaños de Heracles era conmemorado el cuarto día de cada mes, día en el que también se le pedía que alejara la mala suerte de las puertas del hogar.
+        <p>
+        `,
         coincide: (diaciclo) => diaciclo === 4
     },
     {
-        nombre: "Artemisa",
-        descripcion: "Consagrado a la diosa Artemisa.",
+        nombre: "Sexto día: Artemis",
+        descripcion: `
+        <p>
+            Cada mes, el sexto día del calendario es dedicado a la diosa Artemis (Artemisa).
+        <p>
+        <p>
+            La tradición antigua puso su día de nacimiento en el día sexto para que la diosa pudiera ser un poco mayor que su hermano gemelo, Apollon; así es como ella pudo ayudar a su madre (Leto) a dar a luz a su hermano, quien es celebrado en el día séptimo de cada mes.
+        <p>`,
         coincide: (diaciclo) => diaciclo === 6
     },
     {
@@ -109,13 +131,33 @@ const festivales = [
         coincide: (diaciclo) => diaciclo === 7
     },
     {
-        nombre: "Día de Poseidón y Teseo",
-        descripcion: "Consagrado al dios y al héroe Teseo.",
+        nombre: "Octavo día: Poseidón y Teseo",
+        descripcion: `
+            <p>
+                Cada mes, el octavo día del calendario es consagrado al dios Poseidón y su hijo mortal—el héroe Teseo.
+            </p>
+            <p>
+                En la tradición griega, el número ocho era el número sagrado de Poseidón por ser el primer número cúbico, símbolo de estabilidad, solidez y firmeza, cualidades atribuidas al dios como sostén de la tierra, adquiriendo así el epíteto <b>Ennosigaios</b>, el cual significa "El que sacude la tierra".
+            </p>
+            <p>
+                En este día, se conmemora el regreso triunfal del héroe Teseo a Atenas tras derrotar al Minotauro en Creta. Teseo era hijo de Poseidón y rey de Atenas. Se le recuerda como un héroe que defendió a su ciudad y a su gente, y se le honra por su valentía y astucia.
+            </p>
+        `,
         coincide: (diaciclo) => diaciclo === 8
     },
     {
-        nombre: "Día de las Musas, Helios y Rea",
-        descripcion: "Consagrado a las Musas, a Helios y a la madre Rea.",
+        nombre: "Noveno día: Helius, Rheia y las Musas",
+        descripcion: `
+            <p>
+                Cada mes, el noveno día del calendario es dedicado a los dioses Helius (Helios), Rheia (Rhea) y las Musas.
+            <p>
+            <p>
+            La única cita que se puede encontrar al respecto es una mención en el libro de LABRYS: Household Worship con sus citas, pero no pudimos encontrar el extracto exacto de las citas.
+            <p>
+            <p>
+                De todos modos, en la práctica moderna, es una fecha usada para reverenciar a los dioses.
+            </p>
+        `,
         coincide: (diaciclo) => diaciclo === 9
     },
     {
