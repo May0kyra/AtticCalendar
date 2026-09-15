@@ -33,7 +33,6 @@ let selectedDate = null;
 let idiomaActual = 'es'; 
 
 //Calcula el día exacto dentro del ciclo lunar (0 a 29.53) para una fecha dada.
-
 function getLunarDay(date) {
     const tempDate = new Date(date);
 
@@ -156,13 +155,11 @@ function Update(date, opcion = null) {
     }
 }
 function ActualizarFestival(date) {
-    const secondaryContainer = document.querySelector('.secondary-container');
-    const festTitle = document.getElementById('FestTitle');
-    const festInfo = document.getElementById('FestInfo');
-    const closeBtn = document.getElementById('Close');
+    const wrapper = document.getElementById('festivalesWrapper');
+    if (!wrapper) return;
 
     if (!date) {
-        secondaryContainer.classList.add('hidden'); //oculta el cuadro de festivales si no hay fecha seleccionada
+        wrapper.innerHTML = ''; // sin fecha seleccionada, no se dibuja ningún cuadro
         return;
     }
 
@@ -170,28 +167,28 @@ function ActualizarFestival(date) {
     const fase = FaseLunar(lunarDay);
     const totalDias = Mes(currentYear, currentMonthIdx);
 
-    // diaciclo = posición real del día dentro del MES calendario mostrado (ya con el ajuste +1),
-    // en vez de calcularse desde lunarDay directo (que ya no coincide con el día 1 del mes)
+    // diaciclo = posición real del día dentro del MES calendario mostrado
     const mesInicio = InicioDelMesGregoriano(currentYear, currentMonthIdx);
     const diaciclo = Math.round((date - mesInicio) / (1000 * 60 * 60 * 24)) + 1;
 
-    const festival = obtenerFestival(diaciclo,totalDias,fase.name,currentMonthIdx);
+    const festivalesDelDia = obtenerFestival(diaciclo, totalDias, fase.name, currentMonthIdx);
 
-    if (festival) {
-        // Hay festival -> muestra el contenedor
-        festTitle.textContent = festival.nombre;
-        festInfo.innerHTML = festival.descripcion;
-
-        secondaryContainer.classList.remove('hidden');
-
-        // Al seleccionar un nuevo festival, lo mostramos abierto
-        secondaryContainer.classList.remove('collapsed');
-        closeBtn.textContent = '≡';
-
-    } else {
-        // No hay festival se oculta
-        secondaryContainer.classList.add('hidden');
+    if (!festivalesDelDia) {
+        wrapper.innerHTML = '';
+        return;
     }
+
+    // Un cuadro independiente por cada festival del día
+    wrapper.innerHTML = festivalesDelDia.map(f => `
+        <div class="secondary-container">
+            <div class="container-header">
+                <h2>${f.nombre}</h2>
+                <button class="nav-btn btn-collapse">≡</button>
+            </div>
+            <hr style="border-color:#3d1f6e; margin: 10px 0;">
+            <div class="info-content">${f.descripcion}</div>
+        </div>
+    `).join('');
 }
 /*
     Dibuja la cuadrícula del calendario en el HTML (`daysGrid`) e inserta celdas vacías de desfase, 
@@ -390,18 +387,19 @@ function initCalendar() {
     ActualizarFestival(selectedDate);
 }
 
+// Delegación de eventos: los cuadros se crean dinámicamente, así que el listener
+// va en el contenedor padre (que sí existe siempre) en vez de en cada botón
 document.addEventListener('DOMContentLoaded', () => {
-    const closeBtn = document.getElementById('Close');
-    const secondaryContainer = document.querySelector('.secondary-container');
+    const wrapper = document.getElementById('festivalesWrapper');
+    if (!wrapper) return;
 
-    closeBtn.addEventListener('click', () => {
-        secondaryContainer.classList.toggle('collapsed');
+    wrapper.addEventListener('click', (e) => {
+        const btn = e.target.closest('.btn-collapse');
+        if (!btn) return;
 
-        if (secondaryContainer.classList.contains('collapsed')) {
-            closeBtn.textContent = '⏷'; 
-        } else {
-            closeBtn.textContent = '≡'; 
-        }
+        const caja = btn.closest('.secondary-container');
+        caja.classList.toggle('collapsed');
+        btn.textContent = caja.classList.contains('collapsed') ? '⏷' : '≡';
     });
 });
 

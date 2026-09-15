@@ -83,8 +83,16 @@
             box-sizing: border-box;
         }
 
+        .festivales-wrapper {
+            flex: 0.8;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            min-width: 0;
+        }
+
         .secondary-container {
-            flex: 0.8; 
+            width: 100%;
             background: #1a0a2e;
             color: #fefdfd;
             border: 1px solid #3d1f6e;
@@ -95,7 +103,6 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.4);
             padding: 1.2rem;
             box-sizing: border-box;
-            margin-top: 10px;
         }
         .secondary-container.collapsed hr, .secondary-container.collapsed .info-content {
             display: none;
@@ -182,6 +189,19 @@
         }
         .nav-btn:hover {
             background: #2a1040;
+        }
+        .separador-nota {
+            border: 0;
+            border-top: 1px solid #3d1f6e;
+            margin: 20px 0 10px;
+        }
+
+        .nota-autor {
+            font-size: 0.85em;
+            font-style: italic;
+            opacity: 0.75;
+            margin-top: 10px;
+            margin-bottom: 0;
         }
 
         .selected-info {
@@ -389,10 +409,16 @@
                     align-items: center !important;
                 }
                 
-                .secondary-container {
+                .festivales-wrapper {
                     width: 100% !important;
                     max-width: 360px !important;
                     margin: 10px auto !important;
+                    align-items: center !important;
+                }
+
+                .secondary-container {
+                    width: 100% !important;
+                    margin: 0 !important;
                 }
                 #nav {
                     display: block !important;
