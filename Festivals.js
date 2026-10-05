@@ -20,7 +20,7 @@ const festivales = [
                 La obra <i>Plutus</i> tiene el siguiente extracto:
             </p>
             <blockquote>
-                Pregúntale a Hécate si prefiere al rico o al pobre; ella te dirá:
+                Pregúntale a Hécate si prefiere al rico o al pobre; ella te dirá:<br>
                 <i>« El rico manda comida cada mes, mientras que el pobre la hará
                 desaparecer antes de ser servida. »</i>
             </blockquote>
@@ -73,10 +73,10 @@ const festivales = [
             Se considera que los Agathoi Daimones son intermediarios útiles entre los dioses y los hombres, por lo que—aunque a menudo podemos acercarnos directamente a los dioses—es bueno honrar a los espíritus que nos cuidan.
         <p>
         <p>
-            El "daimon" <i>no</i> es el demonio maligno del cristianismo, sino que se creía que era un aspecto de <b>Zeus</b>, como <b>Zeus Ktesios</b>, <b>Charitodotes</b> y <b>Epikarpios</b>, epitetos que lo identifican como dador de abundancia y alegría.
+            El daimon <i>no</i> es el demonio maligno del cristianismo, sino que se creía que era un aspecto de Zeus, como Zeus <b>Ktesios</b>, <b>Charitodotes</b> y <b>Epikarpios</b>, epitetos que lo identifican como dador de abundancia y alegría.
         <p>
         <p>
-            El buen daimon era usualmente asociado con serpientes, toros (gracias al Himno Órfico #9, el cual describe a la luna como cuernos) y vino. Se le asociaba también a los dioses <b>Selene</b>, <b>Hermes</b> y <b>Dionisio</b>.
+            El buen daimon era usualmente asociado con serpientes, toros (gracias al noveno Himno Órfico, el cual describe a la luna como cuernos) y vino. Se le asociaba también a los dioses Selene, Hermes y Dionisio.
         <p>
         <hr class="separador-nota">
             <p class="nota-autor">
@@ -148,7 +148,7 @@ const festivales = [
         nombre: "Séptimo día: Apollon",
         descripcion: `
         <p>
-            Cada mes, el séptimo día del calendario es dedicado al dios Apollon.
+            Cada mes, el séptimo día del calendario es dedicado al dios Apollon (Apolo).
         <p>
         <p>
             Autores antiguos como Hesíodo marcaron el séptimo día como un día santo, fijando su cumpleaños; el mes exacto variaba según la región, pues era celebrado el 7.º de Targelión en Delos, pero un 7.º de Býsios en Delfos. Independientemente de esto, el número siete es grandemente consagrado hacia él, dándole el epíteto <b>Hebdomagenes</b>, que significa "Nacido en el séptimo".
@@ -198,22 +198,18 @@ const festivales = [
         `,
         coincide: (diaciclo) => diaciclo === 9
     },
-    //-------------------------------------Metageitnion
+    //Hekatombaion //0
+
+    //-------------------------------------Metageitnion //1
     {
         nombre: "Herakleia",
         descripcion: `
-        <p>
-            La <i>Herakleia</i> era un festival en honor al héroe y dios griego Heracles. En la antigua Atenas se celebraba este festival para conmemorar la muerte de Heracles en el gimnasio Cinosargo, situado a las afueras de las murallas de Atenas, que además era un santuario para el héroe, para su esposa Hebe y su madre Alcmena. Este festival es notoriamente conocido por recibir personas que no eran ciudadanas. Sus sacerdotes eran seleccionados de una lista de jóvenes y recibían el nombre de <i>nothoi</i> ("hijos ilegítimos") o, según otras fuentes, <i>parasitoi</i> (raíz de la palabra "parásitos"). Para entrenar, eran considerados acompañantes de la divinidad al festín.
-        </p>
-        <p>
-            Heracles a veces es adorado como héroe y otras como dios. En Tebas, el centro del culto a Heracles, los festivales duraban varios días y consistían en varios certámenes de atletismo y música junto con sacrificios de toros.
-        </p>
-        <p>
-            En el culto moderno se suele rendir culto a Heracles durante esta fiesta, a través del ejercicio físico y las ofrendas como libaciones, una corona de olivo, quemando inciensos o recitando himnos homéricos.
-        </p>
+        <p>Las Herakleia eran los antiguos festivales en honor al héroe y dios griego Heracles. En la antigua Atenas se celebraba este festival para conmemorar la muerte de Heracles en el gimnasio Cinosargo —situado a las afueras de las murallas de Atenas— que además era un santuario para el héroe, para su esposa Hebe y su madre Alcmena. Este festival era notoriamente conocido por recibir personas que no eran ciudadanas. Sus sacerdotes eran seleccionados de una lista de jóvenes y recibían el nombre de <i>nothoi</i> ("hijos ilegítimos") o, según otras fuentes, <i>parasitoi</i> (raíz de la palabra "parásitos"). Para entrenar, eran considerados acompañantes de la divinidad al festín.</p>
+        <p>Heracles a veces es adorado como héroe y otras como dios. En Tebas, el centro del culto a Heracles, los festivales duraban varios días y consistían en diversos certámenes de atletismo y música junto con sacrificios de toros.</p>
+        <p>En el culto moderno se suele rendir culto a Heracles durante esta fiesta, a través del ejercicio físico y las ofrendas como libaciones, una corona de olivo, inciensos encendidos o himnos homéricos recitados.</p>
         <hr class="separador-nota">
         <p class="nota-autor">
-                <b>Autor:</b> Nanna.
+            <b>Autor:</b> Nanna. <br><b>Editor:</b> Max León.
         </p>
         `,
         coincide: (diaciclo, totalDias, faseName, mesidx) => diaciclo === 2 && mesidx === 1
@@ -243,31 +239,29 @@ const festivales = [
     {
         nombre: "Las Heroínas",
         descripcion: `      
-        <p>
-            El festival de <ii>Las Heroínas</i> tiene escritos históricos provenientes de Erquia. Hay dos entradas sobre sacrificios, el <i>19.º Metageitnion</i> y el <i>14.º Pyanepsion</i>, pero con evidencia escasa. Las inscripciones nos dan la fecha y las ofrendas, pero no sobre el origen de este festival, la identidad de las heroínas o detalles sobre el ritual completo. Razonablemente, académicos asumen que principalmente debieron ser honradas heroínas erquianas locales, junto a otro tipo de heroínas cuyo culto se había expandido a lo largo de Grecia.
-        </p>
+        <p>El festival de <i>Las Heroínas</i> tiene escritos históricos provenientes de Erquia. Hay dos entradas sobre sacrificios, el <i>19.º Metageitnion</i> y el <i>14.º Pyanepsion</i>, pero con evidencia escasa. Las inscripciones nos dan la fecha y las ofrendas, pero nada sobre el origen de este festival, la identidad de las heroínas o los detalles sobre el ritual completo. Razonablemente, académicos asumen que principalmente debieron ser honradas heroínas erquianas locales, junto a otro tipo de heroínas cuyo culto se había expandido a lo largo de la Antigua Grecia.</p>
         <hr class="separador-nota">
         <p class="nota-autor">
-            <b>Autor:</b> Nanna.
+            <b>Autor:</b> Nanna. <br><b>Editor:</b> Max León.
         </p>
         `,
-        coincide: (diaciclo, totalDias, faseName, mesidx) => diaciclo === 19 && mesidx === 1
+        coincide: (diaciclo, totalDias, faseName, mesidx) => (diaciclo === 19 && mesidx === 1) ^ (diaciclo === 14 && mesidx === 3)
     },
     {
         nombre: "Hera Telkhina",
         descripcion: `      
         <p>
-            En este día honramos a la diosa Hera como diosa del matrimonio y el hogar. 
+            En este día honramos a la reina Hera como diosa del matrimonio y el hogar. 
         </p>
         <p>
-            El título <i>thelkhinia</i>, que es el utilizado en escritos que relatan esta ceremonia, parece ser un error de ortografía al epíteto, pues la palabra <i>thelkhinia</i> no existe. Algunos escritores y académicos prefieren usar la palabra <i>thelxinoos</i> ("La que cautiva el corazón"), pero se cree que el epíteto más acorde es <i>Telkhina</i>, el cual, según LJS, indica una conexión con los habitantes de Telkhis, Creta. Considerados los primeros herreros y, pronto después, los primeros "hechiceros". 
+            El título <i>thelkhinia</i>, que es el utilizado en escritos que relatan esta ceremonia, parece ser un error de ortografía al epíteto, pues la palabra <i>thelkhinia</i> no existe. Algunos escritores y académicos prefieren usar la palabra <i>thelxinoos</i> ("La que cautiva el corazón"), pero se cree que el epíteto más acorde es <i>Telkhina</i>, el cual —según LJS— indica una conexión con los habitantes de Telkhis, Creta. Considerados los primeros herreros y, pronto después, los primeros "hechiceros". 
         </p>
         <p>
             Este evento era considerado un evento menor, pero cualquiera con una conexión particular a la diosa Hera puede darle honores como reina de los cielos.
         </p>
         <hr class="separador-nota">
         <p class="nota-autor">
-            <b>Autor:</b> Nanna.
+            <b>Autor:</b> Nanna. <br><b>Editor:</b> Max León.
         </p>
         `,
         coincide: (diaciclo, totalDias, faseName, mesidx) => diaciclo === 20 && mesidx === 1
@@ -279,10 +273,10 @@ const festivales = [
             Se trataba de un ritual ctónico dedicado a Zeus, durante el cual los habitantes de Erchia sacrificaban un cerdo entero en una pira en honor a Zeus <i>Epoptes</i>, sin consumir ninguna parte del animal. Los registros de esta festividad también especifican que no se realizaban libaciones de vino.
         </p>
         <p>
-            Las piras constituían una forma específica de sacrificio asociada únicamente a las deidades ctónicas. El epíteto <i>Epoptes</i> puede traducirse como «supervisor», «observador» o «vigilante». En este contexto, se invocaba a Zeus como una figura encargada de vigilar las fuerzas relacionadas con la muerte y de proteger a la comunidad frente a lo que estaba por venir.
+            Las piras constituían una forma específica de sacrificio asociada únicamente a las deidades ctónicas. El epíteto <b>Epoptes</b> puede traducirse como «supervisor», «observador» o «vigilante». En este contexto, se invocaba a Zeus como una figura encargada de vigilar las fuerzas relacionadas con la muerte y de proteger a la comunidad frente a lo que estaba por venir.
         </p>
         <p>
-            Según Sarah Iles Johnston, en el verso inicial de <i>Las coéforas</i>, Orestes invoca a Hermes Ctonio—un dios vinculado al control de los muertos—mediante la expresión <i>patrōi’ epopteuon kratē</i>, que puede entenderse como « tú que supervisas [mis] poderes ancestrales ». A partir de este paralelismo, es posible que el papel de <i>Epops</i> o <i>Epopeus</i> en Erchia estuviera relacionado con la supervisión o el control de los muertos. Así, la festividad podría haber tenido como fin contener, controlar o alejar a los muertos considerados peligrosos para la comunidad.
+            Según Sarah Iles Johnston, en el verso inicial de <i>Las coéforas</i>, Orestes invoca a Hermes Ctonio—un dios vinculado al control de los muertos—mediante la expresión <i>patrōi’ epopteuon kratē</i>, que puede entenderse como « tú que supervisas [mis] poderes ancestrales ». A partir de este paralelismo, es posible que el papel de <b>Epops</b> o <b>Epopeus</b> en Erchia estuviera relacionado con la supervisión o el control de los muertos. Así, la festividad podría haber tenido como fin contener, controlar o alejar a los muertos considerados peligrosos para la comunidad.
         </p>
         <hr class="separador-nota">
         <p class="nota-autor">
@@ -291,22 +285,193 @@ const festivales = [
         `,
         coincide: (diaciclo, totalDias, faseName, mesidx) => diaciclo === 25 && mesidx === 1
     },
-    //--------------------------------------Boedromion
-    //--------------------------------------Pyanepsion
-    //--------------------------------------Maimakterion
-    //--------------------------------------Poseideon
-     //--------------------------------------Poseideon2
-    //--------------------------------------Gamelion
-    //--------------------------------------Anthesterion
-    //--------------------------------------Elaphebolion
-    //--------------------------------------Mounykhion
-    //--------------------------------------Thargelion
-     //-------------------------------------Skirophorion
+    //--------------------------------------Boedromion //2
+    //--------------------------------------Pyanepsion //3
+    {
+        nombre: "Proerosia",
+        descripcion: `      
+        <p>
+            La <i>Proerosia</i> era un festival agrícola en honor a la diosa Demetra y su hija Perséfone, celebrado antes de arar y sembrar, durante el cual se ofrecían oraciones para una cosecha abundante. 
+        </p>
+        <p>
+            Este festival era también llamado bajo el nombre de <i>Proarktouria</i>, lo que indicaba que tenía lugar antes de la salida helíaca de la estrella Arturo. La arqueóloga Efrosyni Boutsikas afirma que la salida de Arturo, la estrella más brillante de la constelación Bootes, era usada como guía de referencia cuando el calendario parecía desfasarse, pues la celebración de la Proerosia debía ser exacta para el comienzo de las cosechas.
+        </p>
+        <p>
+            Se dice que Proerosia se celebró por primera vez después de una plaga que afectó a toda Grecia, cuando el oráculo de Delfos dijo que Apollon había ordenado una ofrenda, la primera cosecha, a la diosa Demetra. Posteriormente, excepto por disrupciones de guerra, ofrendas llegaban anualmente de alrededores de Grecia para ganar la gracia de la diosa durante las cosechas.
+        </p>
+        <p>
+            Sabemos que la festividad iniciaba con un sacrificio de agradecimiento por la liberación de la "gran plaga". Era celebrado en cinco demos de Ática, pero bajo diversos nombres y fechas, siendo la más conocida la de Eleusis, donde se convirtió en un festival comunitario de Ática.
+        </p> 
+        <hr class="separador-nota">
+        <p class="nota-autor">
+            <b>Autor:</b> Nanna.
+        </p>
+        `,
+        coincide: (diaciclo, totalDias, faseName, mesidx) => diaciclo === 6 && mesidx === 3
+    },
+    {
+        nombre: "Pyanepsia",
+        descripcion: `      
+        <p>
+            La <i>Pyanepsia</i> es un festival dedicado al dios Apollon y al héroe y fundador de Atenas, Teseo. En cierta medida, también se celebraba al dios Helios y a las Horai (diosas de las estaciones). 
+        </p><p>
+            Este festival es antiguo, siendo el registro más antiguo de este en la era micénica. Se celebraba alrededor de una <i>panspermia</i>, que era un tipo de estofado de frijoles, trigo y diversas semillas. Este evento era un festín contando leyendas y, probablemente, mitos relacionados con Teseo. 
+        </p><p>
+            Se dice que el día que Teseo volvió de matar al minotauro, deseaba cumplir sus votos a Apollon. Los jóvenes que lo recibieron tomaron el resto de sus provisiones, cocinándolas en un festín y ofrendándoselas a Apollon como agradecimiento por traerlo a salvo de Delos a Ática. De ahí la explicación de la panspermia.
+        </p><p>
+            Otra práctica del festival era cargar una <i>iresiona</i> (una rama de olivo o laurel) alrededor de la ciudad mientras cantaban las canciones iresionas de casa en casa. Plutarco describe las iras como:
+        </p><blockquote>
+            « Una rama de olivo adornada con lana, como la que Teseo empleó al hacer su súplica, y cargada de toda clase de ofrendas frutales para señalar que la escasez había llegado a su fin ».
+        </blockquote><p>
+            Parke dice que también presentaba piezas de repostería con formas de arpas, copas, sarmientos y otros elementos.
+        </p><p>
+            Para la época clásica, se colgaba una guirnalda sobre prácticamente todas las puertas de Atenas, la cual conservaba su lugar durante todo el año y se renovaba con motivo de las fiestas de las Pyanepsias y las Targelias.
+        </p><p>
+            La canción de Iresionas, según Plutarco en <i>La vida de Teseo (22.5)</i>:
+        </p>
+        <blockquote>
+            <i>Iresiona trae<br>Toda suerte de bienes:<br>Higos y panes sustanciosos,<br>Aceite suave y dulce miel.<br>Y una copa rebosante de vino.<br>Para que ella beba y duerma.</i>
+        </blockquote>
+        <hr class="separador-nota">
+        <p class="nota-autor">
+            <b>Autor:</b> Nanna.
+        </p>
+        `,
+        coincide: (diaciclo, totalDias, faseName, mesidx) => diaciclo === 7 && mesidx === 3
+    },
+    {
+        nombre: "Oskhophoria",
+        descripcion: `      
+        <p>
+            La <i>Oskhophoria</i> es una celebración celebrada el mismo día que la Pyanepsia, pero en honor a Dionisio y Athene <b>Skiras</b>, quienes protegían la cosecha de uvas. 
+        </p><p>
+            La celebración consistía mayormente en una procesión de un—ahora desconocido—templo de Dionisio hacia el templo de Atenea en Skiras. Dos hombres jóvenes vestidos como mujeres llevaban ramos de <i>oskhoi</i> (uvas) de un templo al otro, simbolizando los eventos de las leyendas de Teseo. 
+        </p><p>
+            Según la leyenda, Teseo debía avisar a su padre de que regresaba a salvo; sin embargo, embargado por la emoción, olvidó izar las velas blancas que señalaban tal hecho, y el anciano se arrojó al vacío y murió al creer que su hijo había fallecido. El heraldo que viajó desde el puerto hasta Atenas para comunicar al rey el regreso de Teseo fue recibido con alegría y coronas de flores; no obstante, debido a la muerte del monarca, las colocó sobre su vara de heraldo en lugar de sobre su propia cabeza.
+        </p><p>
+            En el contexto de esta festividad en honor a Dioniso, resulta interesante el detalle mítico de que fue Teseo quien abandonó a Ariadna en la isla donde, con el tiempo, Dioniso la encontraría y la convertiría en inmortal.
+        </p>
+        <hr class="separador-nota">
+        <p class="nota-autor">
+            <b>Autor:</b> Nanna.
+        </p>
+        `,
+        coincide: (diaciclo, totalDias, faseName, mesidx) => diaciclo === 7 && mesidx === 3
+    },
+    {
+        nombre: "Theseia",
+        descripcion: `      
+        <p>
+            La <i>Theseia</i> es la celebración del retorno de los (supuestos) huesos de Teseo de Atenas a su lugar original de sepultura en Skyros, como fue comandado por el oráculo de Delfos.
+        </p><p>
+            Los atenienses crearon un temenos cerca de la ágora (posiblemente en el templo de Hefesto) para reinsertar los restos e instituir el festival en honor al héroe. La celebración se convirtió en un festival importante que, según Parke, incluía una procesión, competiciones deportivas y el consumo de carne de animales sacrificados. Otro rasgo distintivo de este festival era el consumo de <i>athara</i>, un "pudin" especial elaborado con leche.
+        </p>
+        <hr class="separador-nota">
+        <p class="nota-autor">
+            <b>Autor:</b> Nanna.
+        </p>
+        `,
+        coincide: (diaciclo, totalDias, faseName, mesidx) => diaciclo === 8 && mesidx === 3
+    },
+    {
+        nombre: "Stenia",
+        descripcion: `      
+        <p>
+            La <i>Stenia</i> era una festividad en honor a Demetra y Perséfone que se celebraba tres días antes de las Thesmophoria. 
+        </p><p>
+            Se sabe poco sobre esta festividad, salvo que eran celebradas exclusivamente por mujeres y que en ellas desempeñaban un papel destacado las rituales, las obscenidades fingidas e insultos. Probablemente coincidían con el inicio de la purificación ritual de las mujeres que iban a celebrar las Thesmophoria. Se cree que era también el momento en que otras mujeres, conocidas como <i>«las Achicadoras»</i>, recuperaban las ofrendas para las Thesmophoria de las fosas donde habían sido depositadas durante las Esciroforias (Skira).
+        </p>
+        <hr class="separador-nota">
+        <p class="nota-autor">
+            <b>Autor:</b> Nanna.
+        </p>
+        `,
+        coincide: (diaciclo, totalDias, faseName, mesidx) => diaciclo === 9 && mesidx === 3
+    },
+    {
+        nombre: "Thesmophoria",
+        descripcion: `      
+        <p>
+            La <i>Tesmoforia</i> era un festival celebrado en primavera en honor a la diosa Demetra <b>Tesmóforos</b> y protagonizado exclusivamente por mujeres. El nombre Demetra Thesmophoros sigue siendo un tema de debate en el mundo académico. Como una posible traducción tenemos <i>«portadora de tesoro o riqueza»</i>, el cual era considerado un término obsoleto de thesmos; pero, por otro lado, otros creen que puede ser un epíteto original, significando <i>«la que transporta objetos depositados».</i>
+        </p><p>
+            Las participantes eran mujeres libres que, al parecer, estaban casadas. Se abstenían de mantener relaciones sexuales por días, igualmente evitando el consumo de ciertos alimentos. La festividad duraba tres días, aunque en Ática se prolongaba hasta cinco. 
+        </p><p>
+            El primer día se llamaba <i>anodos</i> (o <i>kathodos</i>), donde las mujeres subían en procesión hacia el santuario de la diosa cargando provisiones para acampar allí.
+        </p><p>
+            El segundo día se llamaba <i>nēsteia</i>, un día de luto estricto en el que imitaban la tristeza de Deméter al perder a su hija. Se sentaban en el suelo y ayunaban para purificarse.
+        </p><p>
+            El tercer día se llamaba <i>Kalligeneia</i>; consistía en una jornada de alegría, banquetes y bromas rituales que celebraba el regreso de la fertilidad y las buenas cosechas. Gran parte de las Tesmoforias se celebraba a la luz de las antorchas e iba acompañada de una ceremonia donde las mujeres intercambiaban insultos y bromas soeces, una práctica habitual para propiciar la fertilidad.
+        </p><p>
+            Durante esta celebración, unas mujeres que habían guardado castidad durante tres días extraían los restos del lechón arrojado durante las Stenias. Estas mujeres también portaban ciertos símbolos de fertilidad bien conocidos, tales como piñas y figuras de masa con forma de serpiente o de hombre. Los restos de los cerdos se depositaban sobre un altar, agregando unas semillas para garantizar una próspera cosecha.
+        </p><p>
+            En el pasado intentaron interpretar estos actos como una conmemoración del rapto de Perséfone, hija de Deméter; sin embargo, lo cierto es que fueron las leyendas las que surgieron a partir de un ritual cuyo significado original ya se había perdido.
+        </p>
+        <hr class="separador-nota">
+        <p class="nota-autor">
+            <b>Autor:</b> Nanna.
+        </p>
+        `,
+        coincide: (diaciclo, totalDias, faseName, mesidx) => diaciclo >=11 && diaciclo <=13 && mesidx === 3
+    },
+    {
+        nombre: "Apatouria",
+        descripcion: `      
+        <p>
+            Parke dice que la familia de festividades de Apaturias no tenía una fecha exacta debido a que las festividades eran manejadas por las autoridades centrales, pero que varias <i>fratrías</i> (que eran el intermedio entre un clan familiar y una tribu) de Atenas. Estas fratrías determinaban cuándo comenzaba la apatouria en cualquier momento del mes de Pianepsión.
+        </p><p>
+            El festival duraba tres días, el primero siendo la <i>Dorpia</i>, un evento de cena, donde hombres venían de alrededor de Ática para realizar la comida tradicional local. 
+        </p><p>
+            El segundo día era el <i>Anarrhysis</i>; un evento de sacrificio. La palabra anarrhysis es la acción de echar hacia atrás el cuello de la víctima para degollarla.
+        </p><p>
+            El tercer día era <i>Koureotis</i>. En este día, los niños nacidos entre la apatouria anterior y esta eran presentados a la fratría. Los niños, posteriormente, se presentarían frente a la fratría una vez habían llegado a la adultez y era ahí donde se les daba un corte de cabello. En ambas ocasiones, el padre presentaría un sacrificio a la fratría. 
+        </p><p>
+            De acuerdo a los registros de una de las fraternidades, también se presentaban pasteles planos, vino y un pago de dracmas de plata para el sacerdote. Presuntamente, la carne que no se presentaba con el sacerdote era posteriormente llevada a la cena de las familias. 
+        </p><p>
+            Hombres recién casados también hacían un sacrificio en la apatouria. Se desconoce si las niñas o esposas de estos hombres asistían a estos eventos.
+        </p><p>
+            Las deidades a las que se les daba honores en este evento eran Zeus <b>Phratrios</b>, Atenea <b>Phratria</b> y Dionisio, por el cual se emborrachaban, dando como resultado el cuarto día del festival, llamado <i>Ephibda</i> ("El día después", bajo el contexto de una resaca). 
+            El atractivo de este festival hoy en día radica en que constituye la ocasión ideal para celebrar nacimientos, matrimonios, compromisos, graduaciones y alistamientos recientes. Es el momento perfecto para una reunión familiar organizada en torno a hitos importantes de la familia.
+        </p>
+        <hr class="separador-nota">
+        <p class="nota-autor">
+            <b>Autor:</b> Nanna.
+        </p>
+        `,
+        coincide: (diaciclo, totalDias, faseName, mesidx) => diaciclo === 13 && mesidx === 3
+    },
+    {
+        nombre: "Khalkeia",
+        descripcion: `      
+        <p>
+            La <i>Khalkeia</i> es una festividad en honor a Atenea <b>Ergane</b> y Hefesto, dioses asociadas principalmente a los artesanos para la época clásica. 
+        </p><p>
+            Pocas deidades estaban tan estrechamente vinculadas en Atenas como Atenea y Hefesto; no solo eran considerados los padres de Erictonio, el primer rey de Atenas, sino que Atenea también recibía en la ciudad el título de <b>Hephaisteia</b> ("Atenea de Hefesto"). 
+        </p><p>
+            Al parecer, la celebración incluía una procesión de trabajadores que portaban cestas de grano como ofrenda, así como sacrificios de animales. 
+        </p><p>
+            Según Parke, los talleres permanecieran cerrados ese día, siendo una versión de lo que nosotros conocemos como el Día del Trabajo. Asimismo, en esta época se preparaba el telar para tejer el <i>peplo</i> que se ofrecería a Atenea durante las Panateneas, nueve meses más tarde, en el mes de Hekatombaion.
+        </p>
+        <hr class="separador-nota">
+        <p class="nota-autor">
+            <b>Autor:</b> Nanna.
+        </p>
+        `,
+        coincide: (diaciclo, totalDias, faseName, mesidx) => diaciclo === 29 && mesidx === 3
+    },
+    //--------------------------------------Maimakterion //4
+    //--------------------------------------Poseideon //5
+     //--------------------------------------Poseideon2 
+    //--------------------------------------Gamelion //6
+    //--------------------------------------Anthesterion //7
+    //--------------------------------------Elaphebolion //8
+    //--------------------------------------Mounykhion //9
+    //--------------------------------------Thargelion //10
+     //-------------------------------------Skirophorion //11
     {
         nombre: "Arrephoria",
         descripcion: `
         <p>
-            La Arreforia es una celebración dedicada a Atenea <i>Ergane</i>. Antiguamente, eran seleccionadas dos muchachas en blanco, las cuales cargaban con "cosas innombrables" (posiblemente telares) que se habían comenzado a tejer para Hefesto meses atrás; y eran llevadas al jardín sagrado (Conocido como <i>temenos</i>) de Afrodite.
+            La Arreforia es una celebración dedicada a Atenea <b>Ergane</b>. Antiguamente, eran seleccionadas dos muchachas en blanco, las cuales cargaban con "cosas innombrables" (posiblemente telares) que se habían comenzado a tejer para Hefesto meses atrás; y eran llevadas al jardín sagrado (Conocido como <i>temenos</i>) de Afrodite.
         <p>
         <p>
             Se cree que este festival se fue mezclando con otro dedicado a la diosa Erse (Diosa del rocío), por lo cual se convirtió en un festival de iniciación femenina hacia la adultez, donde las muchachas llevaban rocío en manos hacia el jardín de Afrodite. También se dice que es un festival que da inicio al verano.
@@ -324,21 +489,12 @@ const festivales = [
     {
         nombre:"Skira",
         descripcion: `
-        <p>
-            La Skira es un festival dedicado a Demetra, Perséfone, Helios, Poseidón Pater y Atenea Skiras.
-        <p>
-        <p>
-            Marca la disolución del año viejo y proteger la tierra del calor veraniego.
-        <p>
-        <p>
-            <i>Esciroforión</i> era el mes de la última cosecha de grano y, por lo tanto, otro importante festival agrícola tenía lugar durante este mes. Se sabe que era parte de un ritual que conmemora la victoria de Atenea sobre Poseidón en favor de la ciudad (festividad necesaria para la <i>Panateneas</i>, el siguiente mes). Dado que el sacerdote de Helios acompaña en procesión a la sacerdotisa de Atenea y a otras mujeres al lugar sagrado para el ritual, es probable que el festival esté relacionado con asegurar las condiciones climáticas para la cosecha.
-        <p>
-        <p>
-            Las mujeres abandonaban sus hogares, realizaban ayuno, comían ajo juntas y celebraban ritos alejadas de los hombres. Incluía una carrera hasta un santuario de Dioniso en la que jóvenes llevaban ramas de vid.
-        <p> 
-        <hr class="separador-nota">
+        <p>La <i>Esciraforia</i> (Esquiraforia/Esquira) es un festival dedicado a Demetra, Perséfone, Helios, Poseidón <b>Pater</b> y Atenea <b>Skiras</b> para marcar la disolución del año viejo y proteger la tierra del calor veraniego.</p>
+        <p>Esciroforión era el mes de la última cosecha de grano y, por lo tanto, otro importante festival agrícola tenía lugar durante este mes. Se sabe que era parte de un ritual que conmemora la victoria de Atenea sobre Poseidón en favor de la ciudad de Atenas (festividad necesaria para la <i>Panateneas</i>, el siguiente mes). Dado que el sacerdote de Helios acompaña en procesión a la sacerdotisa de Atenea y a otras mujeres al lugar sagrado para el ritual, es probable que el festival esté relacionado con asegurar las condiciones climáticas para la cosecha.</p>
+        <p>Las mujeres abandonaban sus hogares, realizaban ayuno, comían ajo juntas y celebraban ritos alejadas de los hombres; incluía una carrera hasta un santuario de Dioniso en la que jóvenes llevaban ramas de vid.</p>
+            <hr class="separador-nota">
             <p class="nota-autor">
-                <b>Autor:</b> Nanna.
+                <b>Autor:</b> Nanna. <br><b>Editor:</b> Max León.
             </p>
         `,
         coincide: (diaciclo, totalDias, faseName, mesidx) => diaciclo === 12 && mesidx === 11
@@ -346,22 +502,19 @@ const festivales = [
     {
         nombre:"Bouphonia and Dipoleia",
         descripcion: `
-        <p>
-            Este festival se celebraba en honor a Zeus Polieus, implicaba el sacrificio de un buey por la profanación del altar de Zeus en la Acrópolis, según <i>Pausanias</i>. Al parecer, el festival era antiguo y "anticuado" incluso en la época clásica. 
-        <p>
-        <p>
-            Su rito central era el sacrificio de un buey, un ritual raro y controvertido en la religión griega antigua porque implicaba el sacrificio de un animal que generalmente se consideraba demasiado valioso para tal uso, por lo que matar uno era considerado asesinato. El rito parece expresar la idea de que el asesinato conlleva culpa incluso cuando se comete por las mejores razones.
-        <p>
+        <p>Este festival se celebraba en honor a Zeus <b>Polieus</b>, e implicaba el sacrificio de un buey por la profanación del altar de Zeus en la Acrópolis, según Pausanias. Al parecer, el festival era antiguo incluso en la época clásica. </p>
+        <p>Su rito central era el sacrificio de un buey, un ritual raro y controvertido en la religión griega antigua porque implicaba el sacrificio de un animal que generalmente se consideraba demasiado valioso para tal uso, por lo que matar uno era considerado asesinato. El rito parece expresar la idea de que el asesinato conlleva culpa incluso cuando se comete por las mejores razones.</p>
         <hr class="separador-nota">
             <p class="nota-autor">
                 Para el ritual se hacía un juicio. El culpable era <i>el hacha</i> con el que se había sacrificado al buey, culminando con que arrojaban el hacha al mar.
             </p>
             <p class="nota-autor">
-                <b>Autor:</b> Nanna.
+                <b>Autor:</b> Nanna. <br><b>Editor:</b> Max León.
             </p>
         `,
         coincide: (diaciclo, totalDias, faseName, mesidx) => diaciclo === 14 && mesidx === 11
     },
+
 ];
 
 // Función para obtener TODOS los festivales que coincidan ese día

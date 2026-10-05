@@ -159,7 +159,7 @@ function ActualizarFestival(date) {
     if (!wrapper) return;
 
     if (!date) {
-        wrapper.innerHTML = ''; // sin fecha seleccionada, no se dibuja ningún cuadro
+        wrapper.innerHTML = '';
         return;
     }
 
@@ -167,7 +167,6 @@ function ActualizarFestival(date) {
     const fase = FaseLunar(lunarDay);
     const totalDias = Mes(currentYear, currentMonthIdx);
 
-    // diaciclo = posición real del día dentro del MES calendario mostrado
     const mesInicio = InicioDelMesGregoriano(currentYear, currentMonthIdx);
     const diaciclo = Math.round((date - mesInicio) / (1000 * 60 * 60 * 24)) + 1;
 
@@ -178,17 +177,34 @@ function ActualizarFestival(date) {
         return;
     }
 
-    // Un cuadro independiente por cada festival del día
-    wrapper.innerHTML = festivalesDelDia.map(f => `
+    const hayVarios = festivalesDelDia.length > 1;
+
+    // Solo se dibujan pestañas cuando hay más de un festival ese día
+    const tabsHtml = hayVarios
+        ? `<div class="festival-tabs">
+            ${festivalesDelDia.map((f, i) => `
+                <button class="tab-btn ${i === 0 ? 'active' : ''}" data-tab="${i}">${f.nombre}</button>
+            `).join('')}
+           </div>`
+        : '';
+
+    //paginas......
+    const panelsHtml = festivalesDelDia.map((f, i) => `
+        <div class="info-content ${i === 0 ? 'active' : ''}" data-panel="${i}">${f.descripcion}</div>
+    `).join('');
+
+        wrapper.innerHTML = `
         <div class="secondary-container">
             <div class="container-header">
-                <h2>${f.nombre}</h2>
+                <h2 class="fest-active-title">${festivalesDelDia[0].nombre}</h2>
                 <button class="nav-btn btn-collapse">≡</button>
             </div>
-            <hr style="border-color:#3d1f6e; margin: 10px 0;">
-            <div class="info-content">${f.descripcion}</div>
+            <div class="tab-panels">
+                ${panelsHtml}
+            </div>
+            ${tabsHtml}
         </div>
-    `).join('');
+    `;
 }
 /*
     Dibuja la cuadrícula del calendario en el HTML (`daysGrid`) e inserta celdas vacías de desfase, 
@@ -387,19 +403,33 @@ function initCalendar() {
     ActualizarFestival(selectedDate);
 }
 
-// Delegación de eventos: los cuadros se crean dinámicamente, así que el listener
-// va en el contenedor padre (que sí existe siempre) en vez de en cada botón
+
 document.addEventListener('DOMContentLoaded', () => {
     const wrapper = document.getElementById('festivalesWrapper');
     if (!wrapper) return;
 
     wrapper.addEventListener('click', (e) => {
-        const btn = e.target.closest('.btn-collapse');
-        if (!btn) return;
+        // Click en el botón de colapsar
+        const collapseBtn = e.target.closest('.btn-collapse');
+        if (collapseBtn) {
+            const caja = collapseBtn.closest('.secondary-container');
+            caja.classList.toggle('collapsed');
+            collapseBtn.textContent = caja.classList.contains('collapsed') ? '⏷' : '≡';
+            return;
+        }
 
-        const caja = btn.closest('.secondary-container');
-        caja.classList.toggle('collapsed');
-        btn.textContent = caja.classList.contains('collapsed') ? '⏷' : '≡';
+        // Click en una pestaña
+        const tabBtn = e.target.closest('.tab-btn');
+        if (tabBtn) {
+            const caja = tabBtn.closest('.secondary-container');
+            const index = tabBtn.dataset.tab;
+
+            caja.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === tabBtn));
+            caja.querySelectorAll('.info-content').forEach(p => p.classList.toggle('active', p.dataset.panel === index));
+
+            const h2 = caja.querySelector('.fest-active-title');
+            if (h2) h2.textContent = tabBtn.textContent;
+        }
     });
 });
 
